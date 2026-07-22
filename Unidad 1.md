@@ -798,7 +798,7 @@ La primera figura mantiene una caminata aleatoria, donde puede moverse en cualqu
 
 ### simplemente se ve horrible
 
-Para mejorarlo un poquito en este punto voy a estabilizar el tamaño de las figuras en el modo normal y en el modo excepción voy a hacer que ya sigan aleaotorias. Y voy a fijar un color a el modo excepción  de cada color.
+Para mejorarlo un poquito en este punto voy a estabilizar el tamaño de las figuras en el modo normal y en el modo excepción voy a hacer que ya sigan aleatorias. Y voy a fijar un color a el modo excepción  de cada color.
 
 
 <img width="437" height="403" alt="image" src="https://github.com/user-attachments/assets/3d7877c8-ae97-4eca-946c-0b22b54329d3" />
@@ -984,9 +984,210 @@ function mousePressed() {
 
 }
 ```
- Me rindo con este,q cosa tan horrible :)
+
+Todo mal :(
+
+Voy a borrar el cambio de figura y eliminar el resto de figuras. Solo deje el circulo que me gustó como se estaba comportando. Además inverti los colores para q el fondo fuera negro y el circulo blanco.
+
+Ahora quiero enfocarme en un festival de grafiteros. Que el concepto sean trazos alocados y descuidados.
+
+```js
+let walker;
+let ultimoClick = 0;
 
 
- Voy a ver si loro hacer algo con ondas pq amo las ondas.
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+
+function setup() {
+  createCanvas(1920, 1080);
+  walker = new Walker();
+background(0);
+  ultimoClick = millis();
+}
+
+function draw() {
+
+  walker.step();
+  walker.show();
+
+
+  if (millis() - ultimoClick > 10000) {
+    walker.shape++;
+
+    if (walker.shape > 2) {
+      walker.shape = 0;
+    }
+
+    ultimoClick = millis();
+  }
+
+
+  if (!modoExcepcion && random(1) < 0.001) {
+    modoExcepcion = true;
+    inicioExcepcion = millis();
+  }
+
+ 
+  if (modoExcepcion && millis() - inicioExcepcion > 2000) {
+    modoExcepcion = false;
+  }
+}
+
+class Walker {
+
+  constructor() {
+    this.x = width / 2;
+    this.y = height / 2;
+  }
+
+  show() {
+
+    noStroke();
+
+
+    
+
+      if (modoExcepcion) {
+        circle(this.x, this.y, random(30));
+        fill(247, 0, 111, 10)
+      } else {
+        circle(this.x, this.y, 10);
+        fill(255, 10);
+      }
+
+   
+
+  }
+
+ step() {
+
+      this.x += random(-10, 10);
+      this.y += random(-10, 10);
+    
+   
+    }
+  
+} 
+
+  
+
+function mousePressed() {
+
+
+}
+
+```
+
+Hay un problemita y es que cuando se inicia el programa el punto inicial queda como un circulo blanco super saturadO, la idea es que desde el inicio salgan parejito de opacidad. Le pregunte a chat que me explicara que estaba ocurriendo y me explicó que el fill tiene que ir primero que el circle. Para que sea mas loco voy a añadir mas circulos con colores diferentes y que de la sensación de un grafiti.
+
+En la parte de la interacción con el usuario funcionara con el click del mouse nuevamente. Va a hacer que cada que se de click al mouse se cree un nuevo circulito por decirlo asi que funciona igual que el inicial. La verdad en este punto me tuve que apoyar mas de chatgpt porque ya si me perdí del todo.
+
+Chat me recomendó que cada circulo tuviera su propio estado para que entren en modo excepción de forma independiente. Entonces para hacerlo hay que usar un arreglo de walkers para que sean varios.
+
+primero en el set up se esta acomodando el primer circulo del arreglo para que inicie en el centro de la pantalla.
+
+despues en draw se lee los walkers del arreglo y se corren los codigos de step, update y show. Se añadió el metodo de update como el nuevo que lee si entra en modo excepción o no.
+```js
+let walkers = [];
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+
+function setup() {
+  createCanvas(1920, 1080);
+  background(0);
+
+  walkers.push(new Walker(width/2, height/2, color(255)));
+}
+
+function draw() {
+  
+for (let w of walkers) {
+  w.step();
+  w.update();
+  w.show();
+}
+  
+}
+
+class Walker {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+   
+
+    this.modoExcepcion = false;
+    this.inicioExcepcion = 0;
+  }
+
+  update() {
+
+  if (!this.modoExcepcion && random(1) < 0.001) {
+    this.modoExcepcion = true;
+    this.inicioExcepcion = millis();
+  }
+
+  if (this.modoExcepcion &&
+      millis() - this.inicioExcepcion > 2000) {
+    this.modoExcepcion = false;
+  }
+}
+
+
+ show() {
+
+  noStroke();
+
+  if (this.modoExcepcion) {
+   fill(255,10);
+
+    circle(this.x, this.y, random(15,30));
+
+  } else {
+    fill(255,10);
+
+    circle(this.x, this.y, 10);
+  }
+}
+  
+
+ step() {
+
+      this.x += random(-10, 10);
+      this.y += random(-10, 10);
+    
+   
+    }
+
+}
+function mousePressed() {
+
+  walkers.push(
+    new Walker(
+      mouseX,
+      mouseY
+     
+    )
+  );
+
+}
+  
+
+
+
+```
+<img width="946" height="717" alt="image" src="https://github.com/user-attachments/assets/c18357dc-8434-4e79-ab5c-dd0479ac580a" />
+
+
+
+
+
+
+
 
 
