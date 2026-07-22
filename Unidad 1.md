@@ -132,7 +132,7 @@ if (r < 0.2) {
     Genuinamente me puse a improvisar haciendo esto, planeaba adaptar la actividad anterior a esta distribución levy pero pues no son distribuciones parecidas entonces como que no habia captado bien que hacer. Ahora despúes lo que hice fue que agarre el primer ejercicio y use la logica del walker y la adapte al de la actividad 3 pero modificando el step con las proobabilidades del levy.
 
   ## Actividad 06🫧🪼
-```
+```js
 let t = 0;
 let walker;
 function setup() {
@@ -172,4 +172,821 @@ step() {
 - Explica por qué lo visualizaste de esa manera y qué resultados esperabas obtener.
   
     Queria hacer como la misma versión del codigo anterior y ver tal vez como se  visualizaría si le cambiaba el tipo de distribucíon que se usaba.  Elegí hacerlo de esta forma ya que podia ver como los saltos que se daban en la otra distribución transformados a un movimiento mas "natural".
+
+## Actividad 07🫧🪼
+### Reto de diseño: Navegar la incertidumbre
+
+Como idea inicial quiero lograr mover diferentes figuras que puedan cambiar de forma con la interacción del usuario.
+
+Planeo usar el codigo de la actividad 5 como base para trabajar en la experiencia completa.
+
+Para iniciar primero tengo que lograr cambiar las figuras con la interacción del click. No estaba muy segura de como empezar a hacerlo entonces le pregunté a chatgpt como emcaminarme para hacerlo y entenderlo.
+
+Primero tenia que modificar el walker para que este leyera el cambio de la figura al hacer la interacción del click. La forma es primero añadirle una variable de shape a este constructor. La idea es que el walker pueda leer cual figura se esta guardando.
+
+  
+* 0 = círculo
+* 1 = cuadrado
+* 2 = triángulo
+
+```js
+  
+constructor() {
+  this.x = width / 2;
+  this.y = height / 2;
+
+  this.shape = 0;
+
+}
+
+```
+
+y para q eso funcione ahora hay que hacer que en el show este el if else para que lea que numero es y muestre esa figura cuando se interactue con el click y se le sume al contador.
+
+```js
+show() {
+  noStroke();
+  fill(0, 10);
+
+  if (this.shape == 0) {
+    circle(this.x, this.y, 40);
+
+  } else if (this.shape == 1) {
+    rectMode(CENTER);
+    square(this.x, this.y, 40);
+
+  } else if (this.shape == 2) {
+    triangle(
+      this.x, this.y - 20,
+      this.x - 20, this.y + 20,
+      this.x + 20, this.y + 20
+    );
+  }
+}
+```
+
+Y para que funcione lo del click se crea una función que detecte el mouse y le sume el numero al contador, y cuando llega a un número mayor de 2 se reinicia.
+
+```js
+function mousePressed() {
+  walker.shape++;
+
+  if (walker.shape > 2) {
+    walker.shape = 0;
+  }
+}
+```
+Y asi queda la primera parte que tenia en mente hacer.
+
+
+<img width="510" height="502" alt="image" src="https://github.com/user-attachments/assets/58f90b28-9172-44ed-adcb-3bcff84a890f" />
+
+
+```js
+  let walker;
+function setup() {
+  createCanvas(400, 400);
+    walker = new Walker();
+}
+
+function draw() {
+  walker.step();
+  walker.show();
+}
+
+class Walker {
+  constructor() {
+     this.shape = 0;
+      this.x = width / 2;
+  this.y = height / 2;
+  }
+ show() {
+  noStroke();
+  fill(0, 10);
+
+  if (this.shape == 0) {
+    circle(this.x, this.y, random(50));
+
+  } else if (this.shape == 1) {
+    rectMode(CENTER);
+    square(this.x, this.y,  random(50));
+
+  } else if (this.shape == 2) {
+    triangle(
+      this.x, this.y - random(50),
+      this.x - random(50), this.y + random(50),
+      this.x + random(50), this.y + random(50)
+    );
+  }
+} step() {
+    let r = random(1);
+
+    if (r < 0.2) {
+      this.x = random(-400, 400);
+      this.y = random(-400, 400);
+    } else {
+      this.x += random(-1, 1);
+      this.y += random(-1, 1);
+    }
+  }
+} 
+
+function mousePressed() {
+  walker.shape++;
+
+  if (walker.shape > 2) {
+    walker.shape = 0;
+  }
+}
+
+```
+
+Bueno, en este punto habia que darle un poquito de autonomia al codigo para que el solito ambiara de figura sin necesidad de interactuar. Entonces lo que voy a hacer es poner un temporizador que cambie el contador si no detecta una interacción del mouse por mas de 10 segundos.
+
+
+Siguiendo la misma logica de lo ultimo que hice voy a añadir otro contador pero que sea el del tiempo y añadirlo en el setup para inicializarla. Desúes en la función draw para 
+
+```js
+function draw() {
+  walker.step();
+  walker.show();
+
+  if (millis() - ultimoClick > 10000) {
+    walker.shape++;
+
+    if (walker.shape > 2) {
+      walker.shape = 0;
+    }
+
+    ultimoClick = millis();
+  }
+}
+```
+
+Aca en esta parte me estrellé un poquito pq genuinamente me perdi en como hacer eso y pedi ayuda a chat. Me explicó que habia que usarlo en el draw para que cada fotograma se lea lo que esta ocurriendo y se leen los segundos que lleva ejecutando los dibujos por decirlo asi. Para saber si cambia de figura lo que hace es leer cuanto tiempo lleva corriendo el programa y lo resta con la ultima vez que se hizo una interacción con el. Y para que el programa tenga como continuidad en la interacción con el usuario se usa la misma logica pero en la función de mousepressed que va a estar basicamente pendiente de que hacer cuando se haga una interaccion.
+
+```js
+function mousePressed() {
+  walker.shape++;
+
+  if (walker.shape > 2) {
+    walker.shape = 0;
+  }
+
+  ultimoClick = millis();
+}
+```
+
+Y la versión de este programa quedaria de esta forma.
+
+```js
+let walker;
+let ultimoClick = 0;
+
+function setup() {
+  createCanvas(400, 400);
+    walker = new Walker();
+}
+
+function draw() {
+  walker.step();
+  walker.show();
+
+  if (millis() - ultimoClick > 10000) {
+    walker.shape++;
+
+    if (walker.shape > 2) {
+      walker.shape = 0;
+    }
+
+    ultimoClick = millis();
+  }
+}
+class Walker {
+  constructor() {
+     this.shape = 0;
+      this.x = width / 2;
+  this.y = height / 2;
+  }
+ show() {
+  noStroke();
+  fill(0, 10);
+
+  if (this.shape == 0) {
+    circle(this.x, this.y, random(50));
+
+  } else if (this.shape == 1) {
+    rectMode(CENTER);
+    square(this.x, this.y,  random(50));
+
+  } else if (this.shape == 2) {
+    triangle(
+      this.x, this.y - random(50),
+      this.x - random(50), this.y + random(50),
+      this.x + random(50), this.y + random(50)
+    );
+  }
+} step() {
+    let r = random(1);
+
+    if (r < 0.2) {
+      this.x = random(-400, 400);
+      this.y = random(-400, 400);
+    } else {
+      this.x += random(-1, 1);
+      this.y += random(-1, 1);
+    }
+  }
+} 
+
+function mousePressed() {
+  walker.shape++;
+
+  if (walker.shape > 2) {
+    walker.shape = 0;
+  }
+}
+```
+### No se ve mucho en la imagen la automatización del cambio de figura.
+<img width="451" height="420" alt="image" src="https://github.com/user-attachments/assets/cfd168ba-df12-4434-b995-934b0c901900" />
+
+
+Bueno, ahora que hice la interacción con usuario toca hacer el resto de cosas. Se me vino a la cabeza para la parte del evento improbable tal vez hacer que haya una probabilidad minima de que los colores de las figuras sean arcoiris, vayan como de forma mas frenetica y se deformen. Y que despúes de un tiempo se normalizara. 
+
+Para lograr esto hay que hacer algo que llamaremos modo excepción que es como este modo que solo se va a activar cuando se cumpla esta probabilidad.
+
+Primero, hay que crear una variable de modoexcepción y un contador que lea cuanto dura este modo excepcion para que se pueda temporizar.
+
+
+```js
+let walker;
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+```
+ Ahora, para hacer la parte de la probabilidad en draw se pone 
+
+```js
+if (!modoExcepcion && random(1) < 0.001) {
+  modoExcepcion = true;
+  inicioExcepcion = millis();
+}
+
+
+if (modoExcepcion && millis() - inicioExcepcion > 5000) {
+  modoExcepcion = false;
+}
+```
+
+Este código lee si en ese momento se esta en modo excepción o no, si no se esta en modo excepción y se cumple la probabilidad se inicializa. Cuando se activa se empieza el contador que mira que la excepción dure  5 segundos.
+
+ Y ahora para hacer todos lo cambios hay que llenar la función de show con puros ifs, que va a leer si se esta en modo excepcion o no.
+
+ <img width="515" height="452" alt="image" src="https://github.com/user-attachments/assets/4a6ce7c8-ac8b-415b-8415-41dee9a1ae52" />
+
+ 
+```js
+ let walker;
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  walker = new Walker();
+
+  ultimoClick = millis();
+}
+
+function draw() {
+
+  walker.step();
+  walker.show();
+
+
+  if (millis() - ultimoClick > 10000) {
+    walker.shape++;
+
+    if (walker.shape > 2) {
+      walker.shape = 0;
+    }
+
+    ultimoClick = millis();
+  }
+
+
+  if (!modoExcepcion && random(1) < 0.001) {
+    modoExcepcion = true;
+    inicioExcepcion = millis();
+  }
+
+ 
+  if (modoExcepcion && millis() - inicioExcepcion > 2000) {
+    modoExcepcion = false;
+  }
+}
+
+class Walker {
+
+  constructor() {
+    this.shape = 0;
+    this.x = width / 2;
+    this.y = height / 2;
+  }
+
+  show() {
+
+    noStroke();
+
+ 
+    if (modoExcepcion) {
+      fill(random(255), random(255), random(255), 120);
+    } else {
+      fill(0, 10);
+    }
+
+    if (this.shape == 0) {
+
+      if (modoExcepcion) {
+        circle(this.x, this.y, random(30, 90));
+      } else {
+        circle(this.x, this.y, random(50));
+      }
+
+    } else if (this.shape == 1) {
+
+      rectMode(CENTER);
+
+      if (modoExcepcion) {
+        square(this.x, this.y, random(30, 90));
+      } else {
+        square(this.x, this.y, random(50));
+      }
+
+    } else if (this.shape == 2) {
+
+      if (modoExcepcion) {
+
+        triangle(
+          this.x,
+          this.y - random(80),
+          this.x - random(80),
+          this.y + random(80),
+          this.x + random(80),
+          this.y + random(80)
+        );
+
+      } else {
+
+        triangle(
+          this.x,
+          this.y - random(50),
+          this.x - random(50),
+          this.y + random(50),
+          this.x + random(50),
+          this.y + random(50)
+        );
+
+      }
+
+    }
+
+  }
+
+  step() {
+
+    let r = random(1);
+
+    if (r < 0.2) {
+      this.x = random(-400, 400);
+      this.y = random(-400, 400);
+    } else {
+
+      if (modoExcepcion) {
+
+        
+        this.x += random(-8, 8);
+        this.y += random(-8, 8);
+
+      } else {
+
+        this.x += random(-1, 1);
+        this.y += random(-1, 1);
+
+      }
+
+    }
+
+  }
+
+}
+
+function mousePressed() {
+
+  walker.shape++;
+
+  if (walker.shape > 2) {
+    walker.shape = 0;
+  }
+
+ 
+  ultimoClick = millis();
+
+}
+
+```
+
+Ahora hay que hacer uso de los conceptos que usamos a lo largo de la unidad. Me lo imaginaba como cada figura tuviera su propio tipo de distribución. Para aumentar además la interacción del usuario voy a hacer que cada vez que se haga click se aumente la probabilidad del modo excepción y que este tenga un tope para reiniciarse.
+
+
+Voy a organizar el proyecto de la siguiente manera:
+
+
+* Posibilidad → Círculo → caminata completamente aleatoria.
+* Tendencia → Cuadrado → distribución no uniforme con preferencia hacia una dirección.
+* Normalidad → Triángulo → distribución normal.
+* Excepción → Modo especial → Lévy Flight + arcoíris + movimiento rapido.
+* Influencia → El usuario cambia el comportamiento y modifica la probabilidad de que ocurra la excepción.
+
+```js
+
+let walker;
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  walker = new Walker();
+
+  ultimoClick = millis();
+}
+
+function draw() {
+
+  walker.step();
+  walker.show();
+
+
+  if (millis() - ultimoClick > 10000) {
+    walker.shape++;
+
+    if (walker.shape > 2) {
+      walker.shape = 0;
+    }
+
+    ultimoClick = millis();
+  }
+
+
+  if (!modoExcepcion && random(1) < 0.001) {
+    modoExcepcion = true;
+    inicioExcepcion = millis();
+  }
+
+ 
+  if (modoExcepcion && millis() - inicioExcepcion > 2000) {
+    modoExcepcion = false;
+  }
+}
+
+class Walker {
+
+  constructor() {
+    this.shape = 0;
+    this.x = width / 2;
+    this.y = height / 2;
+  }
+
+  show() {
+
+    noStroke();
+
+ 
+    if (modoExcepcion) {
+      fill(random(255), random(255), random(255), 120);
+    } else {
+      fill(0, 10);
+    }
+
+    if (this.shape == 0) {
+
+      if (modoExcepcion) {
+        circle(this.x, this.y, random(30, 90));
+      } else {
+        circle(this.x, this.y, random(50));
+      }
+
+    } else if (this.shape == 1) {
+
+      rectMode(CENTER);
+
+      if (modoExcepcion) {
+        square(this.x, this.y, random(30, 90));
+      } else {
+        square(this.x, this.y, random(50));
+      }
+
+    } else if (this.shape == 2) {
+
+      if (modoExcepcion) {
+
+        triangle(
+          this.x,
+          this.y - random(80),
+          this.x - random(80),
+          this.y + random(80),
+          this.x + random(80),
+          this.y + random(80)
+        );
+
+      } else {
+
+        triangle(
+          this.x,
+          this.y - random(50),
+          this.x - random(50),
+          this.y + random(50),
+          this.x + random(50),
+          this.y + random(50)
+        );
+
+      }
+
+    }
+
+  }
+
+step() {
+
+  
+  if (modoExcepcion) {
+
+    this.x += random(-8, 8);
+    this.y += random(-8, 8);
+
+  } 
+  
+
+  else if (this.shape == 0) {
+
+    this.x += random(-10, 10);
+    this.y += random(-10, 10);
+
+  } 
+  
+else if (this.shape == 1) {
+
+  let r = random(1);
+
+  if (r < 0.45) {
+
+    
+    this.x += random(0.5, 2);
+
+  } else if (r < 0.65) {
+
+
+    this.x -= random(0.5, 2);
+
+  } else if (r < 0.825) {
+
+   
+    this.y += random(-1, 5);
+
+  } else {
+
+    
+    this.y -= random(-1, 2);
+
+  }
+
+}
+  
+  
+  else if (this.shape == 2) {
+
+    this.x += randomGaussian() * 2;
+    this.y += randomGaussian() * 2;
+
+  }
+
+}
+
+}
+
+function mousePressed() {
+
+  walker.shape++;
+
+  if (walker.shape > 2) {
+    walker.shape = 0;
+  }
+
+  
+  ultimoClick = millis();
+
+}
+```
+
+La primera figura mantiene una caminata aleatoria, donde puede moverse en cualquier dirección sin tener una preferencia específica. La segunda figura tiene una pequeña tendencia hacia el movimiento horizontal, haciendo que sea más probable que avance hacia un lado, aunque todavía conserva la posibilidad de cambiar de dirección aunque no me esta funcionando bien, se ve super exagerado. Finalmente, la tercera figura utiliza una distribución normal con randomGaussian() pero realmente se ve super parecida a la anterior.
+
+<img width="382" height="386" alt="image" src="https://github.com/user-attachments/assets/1fa12e2a-2475-4adf-906c-a75285c38f70" />
+
+### simplemente se ve horrible
+
+Para mejorarlo un poquito en este punto voy a estabilizar el tamaño de las figuras en el modo normal y en el modo excepción voy a hacer que ya sigan aleaotorias. Y voy a fijar un color a el modo excepción  de cada color.
+
+
+<img width="437" height="403" alt="image" src="https://github.com/user-attachments/assets/3d7877c8-ae97-4eca-946c-0b22b54329d3" />
+
+```js
+let walker;
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  walker = new Walker();
+
+  ultimoClick = millis();
+}
+
+function draw() {
+
+  walker.step();
+  walker.show();
+
+
+  if (millis() - ultimoClick > 10000) {
+    walker.shape++;
+
+    if (walker.shape > 2) {
+      walker.shape = 0;
+    }
+
+    ultimoClick = millis();
+  }
+
+
+  if (!modoExcepcion && random(1) < 0.001) {
+    modoExcepcion = true;
+    inicioExcepcion = millis();
+  }
+
+ 
+  if (modoExcepcion && millis() - inicioExcepcion > 2000) {
+    modoExcepcion = false;
+  }
+}
+
+class Walker {
+
+  constructor() {
+    this.shape = 0;
+    this.x = width / 2;
+    this.y = height / 2;
+  }
+
+  show() {
+
+    noStroke();
+
+
+    if (this.shape == 0) {
+
+      if (modoExcepcion) {
+        circle(this.x, this.y, random(30));
+        fill(247, 0, 111, 50)
+      } else {
+        circle(this.x, this.y, 10);
+        fill(0, 10);
+      }
+
+    } else if (this.shape == 1) {
+
+      rectMode(CENTER);
+
+      if (modoExcepcion) {
+        square(this.x, this.y, random(30));
+        fill(247, 218, 0, 50)
+      } else {
+        square(this.x, this.y, 10);
+         fill(0, 10);
+      }
+
+    } else if (this.shape == 2) {
+
+      if (modoExcepcion) {
+
+        triangle(
+          this.x,
+          this.y - random(30),
+          this.x - random(30),
+          this.y + random(30),
+          this.x + random(30),
+          this.y + random(30)
+        );
+        fill(156, 247, 0, 50)
+
+      } else {
+
+        triangle(
+          this.x,
+          this.y - 10,
+          this.x - 10,
+          this.y + 10,
+          this.x + 10,
+          this.y + 10
+        );
+         fill(0, 10);
+
+      }
+
+    }
+
+  }
+
+step() {
+
+  
+  if (modoExcepcion) {
+
+    this.x += random(-8, 8);
+    this.y += random(-8, 8);
+
+  } 
+  
+
+  else if (this.shape == 0) {
+
+    this.x += random(-10, 10);
+    this.y += random(-10, 10);
+
+  } 
+  
+else if (this.shape == 1) {
+
+  let r = random(1);
+
+  if (r < 0.45) {
+
+    
+    this.x += random(0.5, 2);
+
+  } else if (r < 0.65) {
+
+
+    this.x -= random(0.5, 2);
+
+  } else if (r < 0.825) {
+
+   
+    this.y += random(-1, 5);
+
+  } else {
+
+    
+    this.y -= random(-1, 2);
+
+  }
+
+}
+  
+  
+  else if (this.shape == 2) {
+
+    this.x += randomGaussian() * 2;
+    this.y += randomGaussian() * 2;
+
+  }
+
+}
+
+}
+
+function mousePressed() {
+
+  walker.shape++;
+
+  if (walker.shape > 2) {
+    walker.shape = 0;
+  }
+
+  
+  ultimoClick = millis();
+
+}
+```
+ Me rindo con este,q cosa tan horrible :)
+
+
+ Voy a ver si loro hacer algo con ondas pq amo las ondas.
+
 
