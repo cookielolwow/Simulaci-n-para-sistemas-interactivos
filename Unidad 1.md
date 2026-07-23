@@ -1094,7 +1094,7 @@ function mousePressed() {
 
 ```
 
-Hay un problemita y es que cuando se inicia el programa el punto inicial queda como un circulo blanco super saturadO, la idea es que desde el inicio salgan parejito de opacidad. Le pregunte a chat que me explicara que estaba ocurriendo y me explicó que el fill tiene que ir primero que el circle. Para que sea mas loco voy a añadir mas circulos con colores diferentes y que de la sensación de un grafiti.
+Hay un problemita y es que cuando se inicia el programa el punto inicial queda como un circulo blanco super saturadO, la idea es que desde el inicio salgan parejito de opacidad. Le pregunte a chat que me explicara que estaba ocurriendo y me explicó que el fill tiene que ir primero que el circle. 
 
 En la parte de la interacción con el usuario funcionara con el click del mouse nuevamente. Va a hacer que cada que se de click al mouse se cree un nuevo circulito por decirlo asi que funciona igual que el inicial. La verdad en este punto me tuve que apoyar mas de chatgpt porque ya si me perdí del todo.
 
@@ -1203,10 +1203,7 @@ En este punto ya se estaba asemejando al relieve y textura de la luna en mi crit
 Tenia la idea de hacer como una galaxia y que se vieran las estrellas. Para eso demarque primero como un ramgo en donde el walker iba a andar nada mas y que este fuera el circulo que representa la luna.
 
 
-
-CÍRCULO
-
- ```
+ ```js
 
 let walkers = [];
 let ultimoClick = 0;
@@ -1317,7 +1314,7 @@ function mousePressed() {
 
 Tenia el concepto de que cada que una de los walkers que estaban dentro de la luna chocaran con el limite del circulo se empezaran a general estrellas en el fondo pero la verdad no me terminaba de convencer porque se terminaba saturando demasiado la pantalla y seguia sin haber una tendencia en el programa porque todas las direcciones seguian siendo igaul de probables.
 
- ```
+ ```js
 
 let walkers = [];
 let stars = []
