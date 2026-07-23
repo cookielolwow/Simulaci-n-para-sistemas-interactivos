@@ -985,11 +985,15 @@ function mousePressed() {
 }
 ```
 
-Todo mal :(
+Todo mal :(, creo que mi error en general fue no entender del todo bien el proposito de diseñar la experiencia desde un concepto.
 
-Voy a borrar el cambio de figura y eliminar el resto de figuras. Solo deje el circulo que me gustó como se estaba comportando. Además inverti los colores para q el fondo fuera negro y el circulo blanco.
+Bueno, hay que retomar el diseño de concepto porque me desvie totalmente del proposito de la actividad y me fue accidentalmente por un camino mas de arte y improvisación que por el camino de diseñar.
 
-Ahora quiero enfocarme en un festival de grafiteros. Que el concepto sean trazos alocados y descuidados.
+Me puse a investigar sobre festivales de ciencia y arte que estuvieran ocurriendo aca en medellin y encontré "el Festival Buen Comienzo 2026: Un Viaje al Universo". Una de las actividades que se iban a realizar en este festival es "La Aventura Lunar, una recreación de la superficie de la Luna."
+
+Me gustaria intentar recrear como la superficie de la luna por medio de una experiencia que fuera construyendola lenntamente o intentara simularla.
+
+Usando de base el intento fallido anterior voy a empezar desde ahi para empezar a dibujar los trazos. Voy a borrar el cambio de figura y eliminar el resto de figuras. Solo deje el circulo que me gustó como se estaba comportando. Además inverti los colores para q el fondo fuera negro y el circulo blanco.
 
 ```js
 let walker;
@@ -1184,9 +1188,9 @@ function mousePressed() {
 <img width="946" height="717" alt="image" src="https://github.com/user-attachments/assets/c18357dc-8434-4e79-ab5c-dd0479ac580a" />
 
 
+En este punto ya se estaba asemejando al relieve y textura de la luna en mi criterio. 
 
-
-
+Pero la idea es que el visitante pueda cambiar las reglas del universo, que cambie las posibilidades. 
 
 
 
