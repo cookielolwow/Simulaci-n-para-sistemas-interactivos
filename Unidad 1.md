@@ -2463,7 +2463,7 @@ function mousePressed(){
 
 }
  ```
-Para poder lograr todo esto me tuve que apoyar bastante d ela inteligencia artificial a la hora de realizar el codigo.
+Para poder lograr todo esto me tuve que apoyar bastante de la inteligencia artificial a la hora de realizar el codigo.
 
 
 <img width="474" height="544" alt="image" src="https://github.com/user-attachments/assets/42685ad9-f019-4bf3-a53f-ca6d56b30e15" />
