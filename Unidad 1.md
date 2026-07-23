@@ -1200,7 +1200,7 @@ function mousePressed() {
 
 
 En este punto ya se estaba asemejando al relieve y textura de la luna en mi criterio. 
-Tenia la idea de hacer como una galaxia y que se vieran las estrellas. Para eso demarque primero como un ramgo en donde el walker iba a andar nada mas y que este fuera el circulo que representa la luna.
+Tenia la idea de hacer como una galaxia y que se vieran las estrellas. Para eso demarque primero como un rango en donde el walker iba a andar nada mas y que este fuera el circulo que representa la luna.
 
 
  ```js
@@ -1312,7 +1312,7 @@ function mousePressed() {
   Para la estrellas luego hice esto con la ayuda de la inteligencia artifical. 
 <img width="586" height="415" alt="image" src="https://github.com/user-attachments/assets/316c7ef4-9607-4839-8d1c-bdc5d3d3f3a4" />
 
-Tenia el concepto de que cada que una de los walkers que estaban dentro de la luna chocaran con el limite del circulo se empezaran a general estrellas en el fondo pero la verdad no me terminaba de convencer porque se terminaba saturando demasiado la pantalla y seguia sin haber una tendencia en el programa porque todas las direcciones seguian siendo igaul de probables.
+Tenia el concepto de que cada que una de los walkers que estaban dentro de la luna chocaran con el limite del circulo se empezaran a generar estrellas en el fondo pero la verdad no me terminaba de convencer porque se terminaba saturando demasiado la pantalla y seguia sin haber una tendencia en el programa porque todas las direcciones seguian siendo igual de probables.
 
  ```js
 
@@ -1968,7 +1968,7 @@ function mousePressed(){
 <img width="420" height="765" alt="image" src="https://github.com/user-attachments/assets/7272de31-80fd-4a4f-8cdd-aecfedd44d96" />
 
 
- Por ultimo faltaba terminar de implementar el tema de usabilidad del usuario.  HIce que el tema de la influencia y tendencia fuera al presionar el mouse en la antalla y que los walkers fueran hacia ese putno por decirlo asi.
+ Por ultimo faltaba terminar de implementar el tema de usabilidad del usuario.  HIce que el tema de la influencia y tendencia fuera al presionar el mouse en la antalla y que los walkers fueran hacia ese punto por decirlo asi.
 
 
 ```js
