@@ -2468,6 +2468,10 @@ Para poder lograr todo esto me tuve que apoyar bastante de la inteligencia artif
 
 <img width="474" height="544" alt="image" src="https://github.com/user-attachments/assets/42685ad9-f019-4bf3-a53f-ca6d56b30e15" />
 
+
+[Prototipo interactivo en p5.js](https://editor.p5js.org/cookielolwow/sketches/z1iK2VRAE)
+
+
 | **Criterio**                                                                                                                                      | **Cumplo** | **No cumplo** | **Evidencia**                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------------------------------- | :--------: | :-----------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Encargo completo: interpreto los cinco momentos dentro de un mismo sistema visual.**                                                            |      ☑     |       ☐       | La galaxia representa los cinco momentos mediante el comportamiento de los walkers: la posibilidad está en las direcciones aleatorias, la tendencia en la preferencia hacia una dirección, la normalidad en los pasos cortos con distribución normal, la excepción en los Levy Flights y las supernovas, y la influencia en la modificación de las probabilidades cuando el usuario hace clic. Todo ocurre dentro del mismo sistema visual. |
