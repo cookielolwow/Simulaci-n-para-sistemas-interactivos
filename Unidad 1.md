@@ -1200,10 +1200,7 @@ function mousePressed() {
 
 
 En este punto ya se estaba asemejando al relieve y textura de la luna en mi criterio. 
-Para añadir vetas hay que añadir tendencia al proyecto .
-
-
-Pero la idea es que el visitante pueda cambiar las reglas del universo, que cambie las posibilidades. 
+Tenia la idea de hacer como una galaxia y que se vieran las estrellas. Para eso demarque primero como un ramgo en donde el walker iba a andar nada mas y que este fuera el circulo que representa la luna.
 
 
 
@@ -1313,320 +1310,178 @@ function mousePressed() {
 
 }
  ```
+<img width="523" height="420" alt="image" src="https://github.com/user-attachments/assets/6216524f-d35c-4989-b8bf-b0d23cf62a76" />
+
+  Para la estrellas luego hice esto con la ayuda de la inteligencia artifical. 
+<img width="586" height="415" alt="image" src="https://github.com/user-attachments/assets/316c7ef4-9607-4839-8d1c-bdc5d3d3f3a4" />
+
+Tenia el concepto de que cada que una de los walkers que estaban dentro de la luna chocaran con el limite del circulo se empezaran a general estrellas en el fondo pero la verdad no me terminaba de convencer porque se terminaba saturando demasiado la pantalla y seguia sin haber una tendencia en el programa porque todas las direcciones seguian siendo igaul de probables.
+
+ ```
+
+let walkers = [];
+let stars = []
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+let radius = 800;
+
+let t = 0
+let choice = 0
+function setup() {
+  createCanvas(1920, 1080);
+  background(0
+            );
+
+  walkers.push(new Walker(width/2, height/2, color(255)));
+}
+
+function draw() {
+
+  textSize(49)
+text(t,50,50)
+  
+for (let w of walkers) {
+  w.step();
+  w.update();
+  w.show();
+}
+
+  for (let s of stars) {
+  s.show();
+}
+
+
+  
+  
+}
+
+class Walker {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+   
+
+    this.modoExcepcion = false;
+    this.inicioExcepcion = 0;
+  }
+
+  update() {
+
+  if (!this.modoExcepcion && random(1) < 0.001) {
+    this.modoExcepcion = true;
+    this.inicioExcepcion = millis();
+  }
+
+  if (this.modoExcepcion &&
+      millis() - this.inicioExcepcion > 2000) {
+    this.modoExcepcion = false;
+  }
+}
+
+
+ show() {
+
+  noStroke();
+
+  if (this.modoExcepcion) {
+   fill(255,10);
+
+    circle(this.x, this.y, random(15,30));
+
+  } else {
+    fill(255,10);
+
+    circle(this.x, this.y, 10);
+  }
+}
+  
+
+ step() {
+
+      this.x += random(-10, 10);
+      this.y += random(-10, 10);
+
+      if(dist(this.x,this.y,width/2,height/2) > radius/2)
+      {
+        stars.push(new Star(random(0,width),random(0,height),t))
+        this.x += random(-100, 100);
+        this.y += random(-100, 100);
+
+        t++
+        if(t > 3) t = 0
+      }
+   
+    }
+
+}
+class Star {
+  constructor(x,y,choice)
+  {
+    this.x = x
+    this.y = y
+    this.choice = choice
+  }
+
+  show()
+  {
+    if(this.choice == 0){ fill(255,150,0)}
+    if(this.choice == 1) {fill(170,170,255) }
+    if(this.choice == 2) {fill(255,170,170 )}
+    if(this.choice == 3) {fill(255,255,255 )}
+    
+    circle(this.x,this.y,randomGaussian(0.1,0.5))
+  }
+}
+
+
+function mousePressed() {
+
+  walkers.push(
+    new Walker(
+      mouseX,
+      mouseY
+     
+    )
+  );
+
+}
+  
+
+ ```
+
+
+* No hay una distribución normal (todo usa random() uniforme).
+
+
+* La interacción con el visitante  (mousePressed) solo añade walkers; no cambia las probabilidades del sistema.
+
+* La excepción ocurre constantemente cuando sale del círculo, no como un evento realmente improbable.
+
+
+
+Una galaxia no es galaxia sin cometas , ni estrellas, etc. Conceptualice que esas estrellitas que estaban en el fondo tuvieran la posibilidad de explotar como las supernovas y sacudir un poquito sus alrededores.
+ Tambien pensé como  desde lejos, el choque de grandes meteoritos en la luna parece como una lluvia de estrellas que solo se detecta como breves destellos de luz con telescopios especiales. Entonces estaria interesante lograr este efectoen las estrelas que ya estaban hechas. La forma de lograrlo fue aprovechar los Levy flights de los walkers. Cada vez que un walker realiza uno de esos saltos y abandona el límite del sistema, deja una estrella en el punto donde salió y cae a la luna. Estas estrellas nacen como un registro de ese evento poco frecuente y permanecen brillando lentamente hasta desvanecerse.
+
+
+Me faltaba solucionar los temas del concepto de la unidad y los requisitos del reto.
+
+
+Para lograrlo utilicé walkers, ya que permiten construir trayectorias a partir de pequeñas decisiones probabilísticas en lugar de seguir una ruta fija.
+
+La mayor parte del tiempo el walker utiliza una distribución normal, por lo que da pasos cortos alrededor de su posición actual. Esto hace que el recorrido permanezca concentrado y que visualmente la luna parezca mantenerse en una órbita estable, representando la normalidad del sistema.
+
+Sin embargo, no quería que el movimiento fuera siempre igual. Por eso incorporé una tendencia, donde algunos pasos tienen una ligera preferencia hacia una dirección determinada. Esa preferencia es pequeña, pero al repetirse muchas veces termina construyendo una trayectoria reconocible sin eliminar el componente aleatorio.
+
+Finalmente, añadí una excepción mediante Levy Flights. En muy pocas ocasiones el walker realiza un salto mucho más largo que los demás, permitiéndole explorar zonas nuevas del espacio. Estos eventos representan sucesos improbables que rompen el comportamiento habitual y, además, dejan una estrella como evidencia de que ocurrió algo extraordinario.
+
 
  
- ```
-
-let walkers = [];
-let stars = []
-let ultimoClick = 0;
-
-
-let modoExcepcion = false;
-let inicioExcepcion = 0;
-let radius = 800;
-
-let t = 0
-let choice = 0
-function setup() {
-  createCanvas(1920, 1080);
-  background(0
-            );
-
-  walkers.push(new Walker(width/2, height/2, color(255)));
-}
-
-function draw() {
-
-  textSize(49)
-text(t,50,50)
-  
-for (let w of walkers) {
-  w.step();
-  w.update();
-  w.show();
-}
-
-  for (let s of stars) {
-  s.show();
-}
-
-
-  
-  
-}
-
-class Walker {
-
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-
-   
-
-    this.modoExcepcion = false;
-    this.inicioExcepcion = 0;
-  }
-
-  update() {
-
-  if (!this.modoExcepcion && random(1) < 0.001) {
-    this.modoExcepcion = true;
-    this.inicioExcepcion = millis();
-  }
-
-  if (this.modoExcepcion &&
-      millis() - this.inicioExcepcion > 2000) {
-    this.modoExcepcion = false;
-  }
-}
-
-
- show() {
-
-  noStroke();
-
-  if (this.modoExcepcion) {
-   fill(255,10);
-
-    circle(this.x, this.y, random(15,30));
-
-  } else {
-    fill(255,10);
-
-    circle(this.x, this.y, 10);
-  }
-}
-  
-
- step() {
-
-      this.x += random(-10, 10);
-      this.y += random(-10, 10);
-
-      if(dist(this.x,this.y,width/2,height/2) > radius/2)
-      {
-        stars.push(new Star(random(0,width),random(0,height),t))
-        this.x += random(-100, 100);
-        this.y += random(-100, 100);
-
-        t++
-        if(t > 3) t = 0
-      }
-   
-    }
-
-}
-class Star {
-  constructor(x,y,choice)
-  {
-    this.x = x
-    this.y = y
-    this.choice = choice
-  }
-
-  show()
-  {
-    if(this.choice == 0){ fill(255,150,0)}
-    if(this.choice == 1) {fill(170,170,255) }
-    if(this.choice == 2) {fill(255,170,170 )}
-    if(this.choice == 3) {fill(255,255,255 )}
-    
-    circle(this.x,this.y,randomGaussian(0.1,0.5))
-  }
-}
-
-
-function mousePressed() {
-
-  walkers.push(
-    new Walker(
-      mouseX,
-      mouseY
-     
-    )
-  );
-
-}
-  
- ```
-
-ESTRELLAS
-❌ No hay una tendencia real, porque todas las direcciones siguen siendo igual de probables.
-Crea cometas que pasen por la pantalla en una dirección preferida, PERO pueden haber excepciones.
- ```
-
-let walkers = [];
-let stars = []
-let ultimoClick = 0;
-
-
-let modoExcepcion = false;
-let inicioExcepcion = 0;
-let radius = 800;
-
-let t = 0
-let choice = 0
-function setup() {
-  createCanvas(1920, 1080);
-  background(0
-            );
-
-  walkers.push(new Walker(width/2, height/2, color(255)));
-}
-
-function draw() {
-
-  textSize(49)
-text(t,50,50)
-  
-for (let w of walkers) {
-  w.step();
-  w.update();
-  w.show();
-}
-
-  for (let s of stars) {
-  s.show();
-}
-
-
-  
-  
-}
-
-class Walker {
-
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-
-   
-
-    this.modoExcepcion = false;
-    this.inicioExcepcion = 0;
-  }
-
-  update() {
-
-  if (!this.modoExcepcion && random(1) < 0.001) {
-    this.modoExcepcion = true;
-    this.inicioExcepcion = millis();
-  }
-
-  if (this.modoExcepcion &&
-      millis() - this.inicioExcepcion > 2000) {
-    this.modoExcepcion = false;
-  }
-}
-
-
- show() {
-
-  noStroke();
-
-  if (this.modoExcepcion) {
-   fill(255,10);
-
-    circle(this.x, this.y, random(15,30));
-
-  } else {
-    fill(255,10);
-
-    circle(this.x, this.y, 10);
-  }
-}
-  
-
- step() {
-
-      this.x += random(-10, 10);
-      this.y += random(-10, 10);
-
-      if(dist(this.x,this.y,width/2,height/2) > radius/2)
-      {
-        stars.push(new Star(random(0,width),random(0,height),t))
-        this.x += random(-100, 100);
-        this.y += random(-100, 100);
-
-        t++
-        if(t > 3) t = 0
-      }
-   
-    }
-
-}
-class Star {
-  constructor(x,y,choice)
-  {
-    this.x = x
-    this.y = y
-    this.choice = choice
-  }
-
-  show()
-  {
-    if(this.choice == 0){ fill(255,150,0)}
-    if(this.choice == 1) {fill(170,170,255) }
-    if(this.choice == 2) {fill(255,170,170 )}
-    if(this.choice == 3) {fill(255,255,255 )}
-    
-    circle(this.x,this.y,randomGaussian(0.1,0.5))
-  }
-}
-
-
-function mousePressed() {
-
-  walkers.push(
-    new Walker(
-      mouseX,
-      mouseY
-     
-    )
-  );
-
-}
-  
-
- ```
-
-
-❌ No hay una distribución normal (todo usa random() uniforme).
-el tamaño de las estrellas puede ser producto de una distribucción uniforme.
-
-❌ La interacción (mousePressed) solo añade walkers; no cambia las probabilidades del sistema.
-Que al mouse lo siga un circulo negro, que atrae las cosas que están en cierto rango. Si están en el extremo del rango se mueven lentamente hacía el, si están muy cerca del centro del rango se mueven rapidamente. LOS OBJETOS QUE CAIGAN SON BORRADOS como un agujero negro
-
-❌ La excepción ocurre constantemente cuando sale del círculo, no como un evento realmente improbable.
-Un estado que tenga la CLASE STAR al que es muy poco probable acceder pero que le da lugar a una animación de supernova y BORRA EL OBJETO.
-
-
-
-Cómo lo pensaría conceptualmente
-
-Tu sistema podría ser:
-
-Caminantes = partículas exploradoras
-
-Cada caminante tiene:
-
-90% del tiempo:
-movimiento normal pequeño → "normalidad"
-9%:
-movimiento con tendencia → "dirección emergente"
-1%:
-salto enorme → "excepción/Lévy"
-
-Cuando alguien hace click:
-
-aumenta la probabilidad de Lévy cerca del cursor
-cambia la tendencia del sistema
-aparecen nuevos territorios
-
-Así el visitante no "activa una animación", sino que cambia las reglas.
-
- ```
+ ```js 
 
 
 let walkers = [];
@@ -1736,12 +1591,12 @@ step(){
   let dy;
 
 
-  // influencia del visitante
+ 
   let mouseInfluence = influencia;
 
 
-  // NORMALIDAD
-  // comportamiento más probable
+
+  
   if(r < 0.85 - mouseInfluence*0.2){
 
     dx = randomGaussian(0,3);
@@ -1750,8 +1605,8 @@ step(){
   }
 
 
-  // TENDENCIA
-  // dirección acumulada
+ 
+  
   else if(r < 0.98){
 
     let target = direccionMouse || 0;
@@ -1764,8 +1619,7 @@ step(){
   }
 
 
-  // EXCEPCIÓN
-  // Levy flight
+
   else{
 
 
@@ -1787,7 +1641,7 @@ step(){
 
 
 
-  // límites
+  
 
   if(dist(this.x,this.y,width/2,height/2)>radius/2){
 
@@ -1846,7 +1700,7 @@ this.fadeSpeed = random(0.5,1.5);
   update() {
 
 
-// VIDA DE LA ESTRELLA
+
 this.alpha -= this.fadeSpeed;
 
 
@@ -1864,7 +1718,7 @@ if(this.state == "normal" && random(1) < 0.00002){
 }
 
 
-    // FLASH ANTES DE EXPLOTAR
+    
     if(this.state == "flash") {
 
       this.flash++;
@@ -1900,7 +1754,7 @@ if(this.state == "normal" && random(1) < 0.00002){
 
 
 
-    // SUPERNOVA
+ 
     if(this.state == "supernova") {
 
 
@@ -1908,7 +1762,7 @@ if(this.state == "normal" && random(1) < 0.00002){
 this.alpha -= 2;
 
 
-      // EMPUJE
+      
       for(let s of stars){
 
         if(s !== this){
@@ -1951,7 +1805,7 @@ this.alpha -= 2;
 
 
 
-      // mover partículas
+   
 
       for(let p of this.particles){
 
@@ -1986,7 +1840,7 @@ this.alpha -= 2;
   show(){
 
 
-    // estrella normal
+ 
 
     if(this.state=="normal"){
 
@@ -2004,7 +1858,7 @@ this.alpha -= 2;
 
 
 
-    // aviso antes de explotar
+   
 
     else if(this.state=="flash"){
 
@@ -2033,7 +1887,7 @@ this.alpha -= 2;
 
 
 
-    // explosión
+ 
 
     else if(this.state=="supernova"){
 
@@ -2041,7 +1895,7 @@ this.alpha -= 2;
       noStroke();
 
 
-      // onda expansiva
+
 
      fill(255,255,255,this.alpha*0.2);
 
@@ -2053,7 +1907,7 @@ this.alpha -= 2;
 
 
 
-      // partículas
+      
 
       for(let p of this.particles){
 
@@ -2069,7 +1923,7 @@ fill(255,255,255,p.alpha*this.alpha/255);
 
 
 
-      // núcleo
+    
 
    fill(255,this.alpha);
 
@@ -2117,7 +1971,7 @@ function mousePressed(){
 <img width="420" height="765" alt="image" src="https://github.com/user-attachments/assets/7272de31-80fd-4a4f-8cdd-aecfedd44d96" />
 
 
-ahi me falta crear una direccion y la hice por medio del click del mouse
+ Por ultimo faltaba terminar de implementar el tema de usabilidad del usuario.  HIce que el tema de la influencia y tendencia fuera al presionar el mouse en la antalla y que los walkers fueran hacia ese putno por decirlo asi.
 
 
 ```js
@@ -2229,12 +2083,12 @@ step(){
   let dy;
 
 
-  // influencia del visitante
+ 
   let mouseInfluence = influencia;
 
 
-  // NORMALIDAD
-  // comportamiento más probable
+  
+
   if(r < 0.85 - mouseInfluence*0.2){
 
     dx = randomGaussian(0,3);
@@ -2242,9 +2096,6 @@ step(){
 
   }
 
-
-  // TENDENCIA
-  // dirección acumulada
   else if(r < 0.98){
 
     let target = direccionMouse || 0;
@@ -2257,8 +2108,8 @@ step(){
   }
 
 
-  // EXCEPCIÓN
-  // Levy flight
+
+
   else{
 
 
@@ -2275,7 +2126,7 @@ step(){
 
 
 
-// Influencia temporal mientras el mouse está presionado
+
 if (mouseIsPressed) {
 
   let ang = atan2(
@@ -2292,7 +2143,7 @@ this.x += dx;
 this.y += dy;
 
 
-  // límites
+ 
 
   if(dist(this.x,this.y,width/2,height/2)>radius/2){
 
@@ -2351,7 +2202,7 @@ this.fadeSpeed = random(0.5,1.5);
   update() {
 
 
-// VIDA DE LA ESTRELLA
+
 this.alpha -= this.fadeSpeed;
 
 
@@ -2360,7 +2211,7 @@ if(this.alpha <= 0){
 }
 
 
-// EVENTO RARO DE EXPLOSIÓN
+
 if(this.state == "normal" && random(1) < 0.00002){
 
   this.state = "flash";
@@ -2369,7 +2220,7 @@ if(this.state == "normal" && random(1) < 0.00002){
 }
 
 
-    // FLASH ANTES DE EXPLOTAR
+   
     if(this.state == "flash") {
 
       this.flash++;
@@ -2379,7 +2230,7 @@ if(this.state == "normal" && random(1) < 0.00002){
         this.state = "supernova";
 
 
-        // crear partículas
+      
         for(let i=0;i<40;i++){
 
           let ang = random(TWO_PI);
@@ -2405,7 +2256,7 @@ if(this.state == "normal" && random(1) < 0.00002){
 
 
 
-    // SUPERNOVA
+  
     if(this.state == "supernova") {
 
 
@@ -2456,7 +2307,7 @@ this.alpha -= 2;
 
 
 
-      // mover partículas
+      
 
       for(let p of this.particles){
 
@@ -2491,7 +2342,7 @@ this.alpha -= 2;
   show(){
 
 
-    // estrella normal
+  
 
     if(this.state=="normal"){
 
@@ -2509,7 +2360,7 @@ this.alpha -= 2;
 
 
 
-    // aviso antes de explotar
+ 
 
     else if(this.state=="flash"){
 
@@ -2538,7 +2389,7 @@ this.alpha -= 2;
 
 
 
-    // explosión
+  
 
     else if(this.state=="supernova"){
 
@@ -2546,7 +2397,7 @@ this.alpha -= 2;
       noStroke();
 
 
-      // onda expansiva
+     
 
      fill(255,255,255,this.alpha*0.2);
 
@@ -2558,8 +2409,7 @@ this.alpha -= 2;
 
 
 
-      // partículas
-
+    
       for(let p of this.particles){
 
 fill(255,255,255,p.alpha*this.alpha/255);
@@ -2574,7 +2424,7 @@ fill(255,255,255,p.alpha*this.alpha/255);
 
 
 
-      // núcleo
+ 
 
    fill(255,this.alpha);
 
@@ -2616,52 +2466,18 @@ function mousePressed(){
 
 }
  ```
+Para poder lograr todo esto me tuve que apoyar bastante d ela inteligencia artificial a la hora de realizar el codigo.
 
-Conceptos de la Unidad Implementados:
-Caminata Aleatoria (Random Walk): Es la base del movimiento. En cada fotograma, cada caminante (Walker) calcula un desplazamiento (dx, dy) y lo suma a su posición actual (step()).
 
-Distribuciones de Probabilidad: El núcleo de la lógica de movimiento en step() se basa en un random(1). Dependiendo del valor obtenido y de las variables del sistema (como la influencia del mouse), se selecciona un tipo de movimiento diferente, cada uno con su propia probabilidad.
+<img width="474" height="544" alt="image" src="https://github.com/user-attachments/assets/42685ad9-f019-4bf3-a53f-ca6d56b30e15" />
 
-Distribución Normal (Gaussiana): El comportamiento por defecto y más frecuente (Normalidad) utiliza randomGaussian(0, 3) tanto para dx como para dy. Esto genera movimientos pequeños y centrados, manteniendo la trayectoria de los caminantes cerca de lo habitual y creando grupos densos.
-
-Vuelo de Lévy (Lévy Flight): Este concepto se implementa en la condición de Excepción. En raras ocasiones (cuando r >= 0.98), el caminante da un salto grande en una dirección aleatoria: let salto = random(80, 300);. Esto le permite "escapar" de su zona habitual y "descubrir" un nuevo territorio, dejando un rastro sutil pero distinto.
-
-Traducción de Conceptos Abstractos en Comportamientos:
-Posibilidad (Toda dirección posible): Se refleja en el comportamiento por defecto (Normalidad) y en el Vuelo de Lévy, donde el caminante puede moverse inicialmente en cualquier dirección.
-
-Tendencia (Pequeña preferencia repetida): Se implementa en la sección de Tendencia. Cuando ocurre este modo (con una probabilidad media), el caminante tiende a moverse hacia la dirección definida por el último clic del mouse (direccionMouse). Esto "construye" una dirección a lo largo del tiempo, ya que varios pasos se acumulan en ese sentido.
-
-Normalidad (Cerca de lo habitual): Se traduce en el comportamiento más probable (85% de los casos o menos, dependiendo de la influencia). El uso de randomGaussian(0, 3) asegura que la mayoría de los pasos sean pequeños y se concentren alrededor del punto de partida, creando patrones familiares y densos.
-
-Excepción (Evento improbable, territorio nuevo): Es el Vuelo de Lévy. Con una probabilidad muy baja (2%), el caminante da un gran salto aleatorio, alejándose drásticamente de su zona actual y explorando un área no visitada previamente. Además, este estado activa un modo visual especial temporalmente en update() y show().
-
-Influencia (El visitante transforma): La interacción del usuario (clic y movimiento del mouse) altera directamente el sistema:
-
-mousePressed(): Un clic crea un nuevo caminante en esa posición y, lo más importante, establece la Tendencia (direccionMouse) y aumenta la Influencia global (influencia = 1). Esto último reduce la probabilidad de la Normalidad, haciendo que los caminantes se muevan de forma menos predecible.
-
-mouseIsPressed en step(): Si el mouse se mantiene presionado, cada caminante siente una fuerza de atracción hacia el cursor, modificando su trayectoria en tiempo real.
-
-Aparición de Estrellas: Cuando un caminante sale del límite circular invisible en el centro (radius), crea una Star y es teletransportado de vuelta hacia el centro.
-
-Características del Sistema:
-Pieza Coherente: Todo ocurre en un solo lienzo negro y continuo. Las estrellas añaden una capa visual y de comportamiento extra.
-
-Modificación de Probabilidades: La interacción cambia el valor de influencia, lo que a su vez altera la lógica condicional en step(), cambiando las probabilidades de Normalidad y Tendencia.
-
-Funcionamiento Autónomo: El sistema sigue funcionando y evolucionando (los caminantes se mueven, las estrellas nacen, brillan y mueren) incluso sin interacción del usuario.
-
-Variaciones con Identidad Visual: Cada ejecución produce patrones únicos de rastros y estrellas debido a la aleatoriedad, pero la estética visual (fondo negro, rastros blancos, estrellas parpadeantes) y la lógica de movimiento general se mantienen constantes.
-
-Formato y Ejecución: Está configurado para pantalla completa y formato vertical (9:16, 1080x1920) y se ejecuta interactivamente en tiempo real en p5.js.
-
-Eventos Adicionales (Estrellas):
-Las estrellas añaden complejidad visual y de comportamiento:
-
-Nacimiento y Muerte: Nacen cuando un caminante sale del límite central y mueren lentamente (alpha -= fadeSpeed).
-
-Supernova: En raras ocasiones, una estrella puede explotar. Esto genera un "flash" visual, crea partículas que se expanden y, lo más interesante, aplica una fuerza de empuje a todas las otras estrellas cercanas, creando interacciones dinámicas en la población de estrellas.
-
-Este sistema es un ejemplo de arte generativo donde reglas simples y probabilidad interactúan con la entrada del usuario para crear una experiencia visual rica y evolutiva.
+| **Criterio**                                                                                                                                      | **Cumplo** | **No cumplo** | **Evidencia**                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | :--------: | :-----------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Encargo completo: interpreto los cinco momentos dentro de un mismo sistema visual.**                                                            |      ☑     |       ☐       | La galaxia representa los cinco momentos mediante el comportamiento de los walkers: la posibilidad está en las direcciones aleatorias, la tendencia en la preferencia hacia una dirección, la normalidad en los pasos cortos con distribución normal, la excepción en los Levy Flights y las supernovas, y la influencia en la modificación de las probabilidades cuando el usuario hace clic. Todo ocurre dentro del mismo sistema visual. |
+| **Simulación con intención: utilizo al menos tres conceptos de la unidad para comunicar las ideas del encargo.**                                  |      ☑     |       ☐       | Se utilizaron caminatas aleatorias, distribución normal y Levy Flights para construir el comportamiento del sistema. Cada uno cumple una función conceptual diferente y contribuye a la representación de la galaxia.                                                                                                                                                                                                                       |
+| **Interacción significativa: la interacción modifica el comportamiento o las probabilidades del sistema, que también funciona sin intervención.** |      ☑     |       ☐       | El clic del usuario cambia la probabilidad de movimiento al aumentar la influencia hacia una dirección y genera un nuevo walker. Sin interacción, el sistema continúa funcionando, creando estrellas y eventos excepcionales de manera autónoma.                                                                                                                                                                                            |
+| **Prototipo funcional: la experiencia puede ejecutarse y recorrerse completa sin errores que impidan comprenderla.**                              |      ☑     |       ☐       | El prototipo funciona en tiempo real, mantiene el formato 9:16 y permite observar todos los comportamientos del sistema sin fallos que afecten su comprensión.                                                                                                                                                                                                                                                                              |
+| **Proceso documentado: la bitácora evidencia avances, decisiones, dificultades, soluciones, uso de IA y enlace al prototipo.**                    |      ☑     |       ☐       | La bitácora incluye la intención conceptual, experimentos, versiones intermedias, decisiones de diseño, dificultades encontradas, soluciones implementadas, explicación del uso de IA generativa y el enlace al prototipo junto con evidencias visuales.                                                                                                                                                                                    |
 
 
 
