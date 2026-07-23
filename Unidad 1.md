@@ -1209,6 +1209,7 @@ Pero la idea es que el visitante pueda cambiar las reglas del universo, que camb
 
 CÍRCULO
 
+ ```
 
 let walkers = [];
 let ultimoClick = 0;
@@ -1311,9 +1312,10 @@ function mousePressed() {
   );
 
 }
+ ```
 
- ❌ No hay una tendencia real, porque todas las direcciones siguen siendo igual de probables.
-Crea cometas que pasen por la pantalla en una dirección preferida, PERO pueden haber excepciones.
+ 
+ ```
 
 let walkers = [];
 let stars = []
@@ -1447,10 +1449,12 @@ function mousePressed() {
 
 }
   
+ ```
 
 ESTRELLAS
 ❌ No hay una tendencia real, porque todas las direcciones siguen siendo igual de probables.
 Crea cometas que pasen por la pantalla en una dirección preferida, PERO pueden haber excepciones.
+ ```
 
 let walkers = [];
 let stars = []
@@ -1585,6 +1589,7 @@ function mousePressed() {
 }
   
 
+ ```
 
 
 ❌ No hay una distribución normal (todo usa random() uniforme).
@@ -1598,8 +1603,1065 @@ Un estado que tenga la CLASE STAR al que es muy poco probable acceder pero que l
 
 
 
+Cómo lo pensaría conceptualmente
+
+Tu sistema podría ser:
+
+Caminantes = partículas exploradoras
+
+Cada caminante tiene:
+
+90% del tiempo:
+movimiento normal pequeño → "normalidad"
+9%:
+movimiento con tendencia → "dirección emergente"
+1%:
+salto enorme → "excepción/Lévy"
+
+Cuando alguien hace click:
+
+aumenta la probabilidad de Lévy cerca del cursor
+cambia la tendencia del sistema
+aparecen nuevos territorios
+
+Así el visitante no "activa una animación", sino que cambia las reglas.
+
+ ```
 
 
+let walkers = [];
+let stars = []
+let ultimoClick = 0;
+let trail;
+let influencia = 0;
+let direccionMouse;
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+let radius = 800;
+
+let t = 0
+let choice = 0
+function setup() {
+  createCanvas(1080, 1920);
+  trail = createGraphics(1080,1920);
+trail.background(0);
+  background(0
+            );
+
+  walkers.push(new Walker(width/2, height/2, color(255)));
+}
+
+function draw() {
+
+  background(0);
+
+
+  image(trail,0,0);
+
+
+  for (let w of walkers) {
+    w.step();
+    w.update();
+    w.show();
+  }
+
+
+  for(let s of stars){
+    s.update();
+    s.show();
+  }
+
+
+  stars = stars.filter(s => !s.dead);
+
+}
+
+
+  
+  
+
+
+class Walker {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+   
+
+    this.modoExcepcion = false;
+    this.inicioExcepcion = 0;
+  }
+
+  update() {
+
+  if (!this.modoExcepcion && random(1) < 0.001) {
+    this.modoExcepcion = true;
+    this.inicioExcepcion = millis();
+  }
+
+  if (this.modoExcepcion &&
+      millis() - this.inicioExcepcion > 2000) {
+    this.modoExcepcion = false;
+  }
+}
+
+
+show() {
+
+  trail.noStroke();
+
+  if (this.modoExcepcion) {
+
+    trail.fill(255,7);
+    trail.circle(this.x,this.y,random(15,30));
+
+  } 
+  
+  else {
+
+    trail.fill(255,5);
+    trail.circle(this.x,this.y,10);
+
+  }
+
+}
+  
+
+step(){
+
+  let r = random(1);
+
+  let dx;
+  let dy;
+
+
+  // influencia del visitante
+  let mouseInfluence = influencia;
+
+
+  // NORMALIDAD
+  // comportamiento más probable
+  if(r < 0.85 - mouseInfluence*0.2){
+
+    dx = randomGaussian(0,3);
+    dy = randomGaussian(0,3);
+
+  }
+
+
+  // TENDENCIA
+  // dirección acumulada
+  else if(r < 0.98){
+
+    let target = direccionMouse || 0;
+
+
+    dx = cos(target)*randomGaussian(4,2);
+    dy = sin(target)*randomGaussian(4,2);
+
+
+  }
+
+
+  // EXCEPCIÓN
+  // Levy flight
+  else{
+
+
+    let ang = random(TWO_PI);
+
+    let salto = random(80,300);
+
+
+    dx = cos(ang)*salto;
+    dy = sin(ang)*salto;
+
+
+  }
+
+
+
+  this.x += dx;
+  this.y += dy;
+
+
+
+  // límites
+
+  if(dist(this.x,this.y,width/2,height/2)>radius/2){
+
+
+    stars.push(
+      new Star(
+        this.x,
+        this.y,
+        t
+      )
+    );
+
+
+    this.x = lerp(
+      this.x,
+      width/2,
+      0.05
+    );
+
+
+    this.y = lerp(
+      this.y,
+      height/2,
+      0.05
+    );
+
+  }
+
+
+}
+
+}
+class Star {
+
+  constructor(x, y, choice) {
+
+    this.x = x;
+    this.y = y;
+    this.choice = choice;
+
+    this.size = random(1,3);
+
+this.alpha = 255;
+this.fadeSpeed = random(0.5,1.5);
+    this.dead = false;
+
+    this.state = "normal";
+
+    this.flash = 0;
+    this.explosion = 0;
+
+    this.particles = [];
+  }
+
+
+  update() {
+
+
+// VIDA DE LA ESTRELLA
+this.alpha -= this.fadeSpeed;
+
+
+if(this.alpha <= 0){
+  this.dead = true;
+}
+
+
+// EVENTO RARO DE EXPLOSIÓN
+if(this.state == "normal" && random(1) < 0.00002){
+
+  this.state = "flash";
+  this.flash = 0;
+
+}
+
+
+    // FLASH ANTES DE EXPLOTAR
+    if(this.state == "flash") {
+
+      this.flash++;
+
+      if(this.flash > 20){
+
+        this.state = "supernova";
+
+
+        // crear partículas
+        for(let i=0;i<40;i++){
+
+          let ang = random(TWO_PI);
+          let speed = random(1,6);
+
+          this.particles.push({
+
+            x:this.x,
+            y:this.y,
+
+            vx:cos(ang)*speed,
+            vy:sin(ang)*speed,
+
+            alpha:255
+
+          });
+
+        }
+
+      }
+
+    }
+
+
+
+    // SUPERNOVA
+    if(this.state == "supernova") {
+
+
+      this.explosion += 3;
+this.alpha -= 2;
+
+
+      // EMPUJE
+      for(let s of stars){
+
+        if(s !== this){
+
+          let d = dist(
+            this.x,
+            this.y,
+            s.x,
+            s.y
+          );
+
+
+          if(d < this.explosion){
+
+
+            let ang = atan2(
+              s.y-this.y,
+              s.x-this.x
+            );
+
+
+            let fuerza = map(
+              d,
+              0,
+              this.explosion,
+              5,
+              0
+            );
+
+
+            s.x += cos(ang)*fuerza;
+            s.y += sin(ang)*fuerza;
+
+          }
+
+        }
+
+      }
+
+
+
+
+      // mover partículas
+
+      for(let p of this.particles){
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        p.alpha -= 5;
+
+      }
+
+
+      this.particles =
+      this.particles.filter(
+        p=>p.alpha>0
+      );
+
+
+
+      if(this.explosion > 200 &&
+         this.particles.length == 0){
+
+        this.dead = true;
+
+      }
+
+    }
+
+  }
+
+
+
+  show(){
+
+
+    // estrella normal
+
+    if(this.state=="normal"){
+
+      noStroke();
+
+      fill(255,this.alpha);
+
+      circle(
+        this.x,
+        this.y,
+        this.size
+      );
+
+    }
+
+
+
+    // aviso antes de explotar
+
+    else if(this.state=="flash"){
+
+      noStroke();
+
+
+      fill(255,255,255,50);
+
+      circle(
+        this.x,
+        this.y,
+        10
+      );
+
+
+      fill(255,255,255,80);
+
+      circle(
+        this.x,
+        this.y,
+        30
+      );
+
+
+    }
+
+
+
+    // explosión
+
+    else if(this.state=="supernova"){
+
+
+      noStroke();
+
+
+      // onda expansiva
+
+     fill(255,255,255,this.alpha*0.2);
+
+      circle(
+        this.x,
+        this.y,
+        this.explosion
+      );
+
+
+
+      // partículas
+
+      for(let p of this.particles){
+
+fill(255,255,255,p.alpha*this.alpha/255);
+
+        circle(
+          p.x,
+          p.y,
+          3
+        );
+
+      }
+
+
+
+      // núcleo
+
+   fill(255,this.alpha);
+
+      circle(
+        this.x,
+        this.y,
+        8
+      );
+
+    }
+
+
+  }
+
+}
+function dibujarLuna(){
+
+  noFill();
+  stroke(255,30);
+  strokeWeight(2);
+
+  circle(width/2,height/2,radius);
+
+}
+
+function mousePressed(){
+
+  direccionMouse = atan2(
+    mouseY-height/2,
+    mouseX-width/2
+  );
+
+  influencia = 1;
+
+
+  walkers.push(
+    new Walker(mouseX,mouseY)
+  );
+
+}
+  
+ ```
+
+
+<img width="420" height="765" alt="image" src="https://github.com/user-attachments/assets/7272de31-80fd-4a4f-8cdd-aecfedd44d96" />
+
+
+ahi me falta crear una direccion y la hice por medio del click del mouse
+
+
+```js
+
+let walkers = [];
+let stars = []
+let ultimoClick = 0;
+let trail;
+let influencia = 0;
+let direccionMouse;
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+let radius = 800;
+
+let t = 0
+let choice = 0
+function setup() {
+  createCanvas(1080, 1920);
+  trail = createGraphics(1080,1920);
+trail.background(0);
+  background(0
+            );
+
+  walkers.push(new Walker(width/2, height/2, color(255)));
+}
+
+function draw() {
+
+  background(0);
+
+
+  image(trail,0,0);
+
+
+  for (let w of walkers) {
+    w.step();
+    w.update();
+    w.show();
+  }
+
+
+  for(let s of stars){
+    s.update();
+    s.show();
+  }
+
+
+  stars = stars.filter(s => !s.dead);
+
+}
+
+
+  
+  
+
+
+class Walker {
+
+constructor(x, y) {
+  this.x = x;
+  this.y = y;
+
+  this.modoExcepcion = false;
+  this.inicioExcepcion = 0;
+
+  this.creoEstrella = false;
+}
+
+  update() {
+
+  if (!this.modoExcepcion && random(1) < 0.001) {
+    this.modoExcepcion = true;
+    this.inicioExcepcion = millis();
+  }
+
+  if (this.modoExcepcion &&
+      millis() - this.inicioExcepcion > 2000) {
+    this.modoExcepcion = false;
+  }
+}
+
+
+show() {
+
+  trail.noStroke();
+
+  if (this.modoExcepcion) {
+
+    trail.fill(255,7);
+    trail.circle(this.x,this.y,random(15,30));
+
+  } 
+  
+  else {
+
+    trail.fill(255,5);
+    trail.circle(this.x,this.y,10);
+
+  }
+
+}
+  
+
+step(){
+
+  let r = random(1);
+
+  let dx;
+  let dy;
+
+
+  // influencia del visitante
+  let mouseInfluence = influencia;
+
+
+  // NORMALIDAD
+  // comportamiento más probable
+  if(r < 0.85 - mouseInfluence*0.2){
+
+    dx = randomGaussian(0,3);
+    dy = randomGaussian(0,3);
+
+  }
+
+
+  // TENDENCIA
+  // dirección acumulada
+  else if(r < 0.98){
+
+    let target = direccionMouse || 0;
+
+
+    dx = cos(target)*randomGaussian(4,2);
+    dy = sin(target)*randomGaussian(4,2);
+
+
+  }
+
+
+  // EXCEPCIÓN
+  // Levy flight
+  else{
+
+
+    let ang = random(TWO_PI);
+
+    let salto = random(80,300);
+
+
+    dx = cos(ang)*salto;
+    dy = sin(ang)*salto;
+
+
+  }
+
+
+
+// Influencia temporal mientras el mouse está presionado
+if (mouseIsPressed) {
+
+  let ang = atan2(
+    mouseY - this.y,
+    mouseX - this.x
+  );
+
+  dx += cos(ang) * 2;
+  dy += sin(ang) * 2;
+
+}
+
+this.x += dx;
+this.y += dy;
+
+
+  // límites
+
+  if(dist(this.x,this.y,width/2,height/2)>radius/2){
+
+
+    stars.push(
+      new Star(
+        this.x,
+        this.y,
+        t
+      )
+    );
+
+
+    this.x = lerp(
+      this.x,
+      width/2,
+      0.05
+    );
+
+
+    this.y = lerp(
+      this.y,
+      height/2,
+      0.05
+    );
+
+  }
+
+
+}
+
+}
+class Star {
+
+  constructor(x, y, choice) {
+
+    this.x = x;
+    this.y = y;
+    this.choice = choice;
+
+    this.size = random(1,3);
+
+this.alpha = 255;
+this.fadeSpeed = random(0.5,1.5);
+    this.dead = false;
+
+    this.state = "normal";
+
+    this.flash = 0;
+    this.explosion = 0;
+
+    this.particles = [];
+  }
+
+
+  update() {
+
+
+// VIDA DE LA ESTRELLA
+this.alpha -= this.fadeSpeed;
+
+
+if(this.alpha <= 0){
+  this.dead = true;
+}
+
+
+// EVENTO RARO DE EXPLOSIÓN
+if(this.state == "normal" && random(1) < 0.00002){
+
+  this.state = "flash";
+  this.flash = 0;
+
+}
+
+
+    // FLASH ANTES DE EXPLOTAR
+    if(this.state == "flash") {
+
+      this.flash++;
+
+      if(this.flash > 20){
+
+        this.state = "supernova";
+
+
+        // crear partículas
+        for(let i=0;i<40;i++){
+
+          let ang = random(TWO_PI);
+          let speed = random(1,6);
+
+          this.particles.push({
+
+            x:this.x,
+            y:this.y,
+
+            vx:cos(ang)*speed,
+            vy:sin(ang)*speed,
+
+            alpha:255
+
+          });
+
+        }
+
+      }
+
+    }
+
+
+
+    // SUPERNOVA
+    if(this.state == "supernova") {
+
+
+      this.explosion += 3;
+this.alpha -= 2;
+
+
+      // EMPUJE
+      for(let s of stars){
+
+        if(s !== this){
+
+          let d = dist(
+            this.x,
+            this.y,
+            s.x,
+            s.y
+          );
+
+
+          if(d < this.explosion){
+
+
+            let ang = atan2(
+              s.y-this.y,
+              s.x-this.x
+            );
+
+
+            let fuerza = map(
+              d,
+              0,
+              this.explosion,
+              5,
+              0
+            );
+
+
+            s.x += cos(ang)*fuerza;
+            s.y += sin(ang)*fuerza;
+
+          }
+
+        }
+
+      }
+
+
+
+
+      // mover partículas
+
+      for(let p of this.particles){
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        p.alpha -= 5;
+
+      }
+
+
+      this.particles =
+      this.particles.filter(
+        p=>p.alpha>0
+      );
+
+
+
+      if(this.explosion > 200 &&
+         this.particles.length == 0){
+
+        this.dead = true;
+
+      }
+
+    }
+
+  }
+
+
+
+  show(){
+
+
+    // estrella normal
+
+    if(this.state=="normal"){
+
+      noStroke();
+
+      fill(255,this.alpha);
+
+      circle(
+        this.x,
+        this.y,
+        this.size
+      );
+
+    }
+
+
+
+    // aviso antes de explotar
+
+    else if(this.state=="flash"){
+
+      noStroke();
+
+
+      fill(255,255,255,50);
+
+      circle(
+        this.x,
+        this.y,
+        10
+      );
+
+
+      fill(255,255,255,80);
+
+      circle(
+        this.x,
+        this.y,
+        30
+      );
+
+
+    }
+
+
+
+    // explosión
+
+    else if(this.state=="supernova"){
+
+
+      noStroke();
+
+
+      // onda expansiva
+
+     fill(255,255,255,this.alpha*0.2);
+
+      circle(
+        this.x,
+        this.y,
+        this.explosion
+      );
+
+
+
+      // partículas
+
+      for(let p of this.particles){
+
+fill(255,255,255,p.alpha*this.alpha/255);
+
+        circle(
+          p.x,
+          p.y,
+          3
+        );
+
+      }
+
+
+
+      // núcleo
+
+   fill(255,this.alpha);
+
+      circle(
+        this.x,
+        this.y,
+        8
+      );
+
+    }
+
+
+  }
+
+}
+function dibujarLuna(){
+
+  noFill();
+  stroke(255,30);
+  strokeWeight(2);
+
+  circle(width/2,height/2,radius);
+
+}
+
+function mousePressed(){
+
+  direccionMouse = atan2(
+    mouseY-height/2,
+    mouseX-width/2
+  );
+
+  influencia = 1;
+
+
+  walkers.push(
+    new Walker(mouseX,mouseY)
+  );
+
+}
+ ```
+
+Conceptos de la Unidad Implementados:
+Caminata Aleatoria (Random Walk): Es la base del movimiento. En cada fotograma, cada caminante (Walker) calcula un desplazamiento (dx, dy) y lo suma a su posición actual (step()).
+
+Distribuciones de Probabilidad: El núcleo de la lógica de movimiento en step() se basa en un random(1). Dependiendo del valor obtenido y de las variables del sistema (como la influencia del mouse), se selecciona un tipo de movimiento diferente, cada uno con su propia probabilidad.
+
+Distribución Normal (Gaussiana): El comportamiento por defecto y más frecuente (Normalidad) utiliza randomGaussian(0, 3) tanto para dx como para dy. Esto genera movimientos pequeños y centrados, manteniendo la trayectoria de los caminantes cerca de lo habitual y creando grupos densos.
+
+Vuelo de Lévy (Lévy Flight): Este concepto se implementa en la condición de Excepción. En raras ocasiones (cuando r >= 0.98), el caminante da un salto grande en una dirección aleatoria: let salto = random(80, 300);. Esto le permite "escapar" de su zona habitual y "descubrir" un nuevo territorio, dejando un rastro sutil pero distinto.
+
+Traducción de Conceptos Abstractos en Comportamientos:
+Posibilidad (Toda dirección posible): Se refleja en el comportamiento por defecto (Normalidad) y en el Vuelo de Lévy, donde el caminante puede moverse inicialmente en cualquier dirección.
+
+Tendencia (Pequeña preferencia repetida): Se implementa en la sección de Tendencia. Cuando ocurre este modo (con una probabilidad media), el caminante tiende a moverse hacia la dirección definida por el último clic del mouse (direccionMouse). Esto "construye" una dirección a lo largo del tiempo, ya que varios pasos se acumulan en ese sentido.
+
+Normalidad (Cerca de lo habitual): Se traduce en el comportamiento más probable (85% de los casos o menos, dependiendo de la influencia). El uso de randomGaussian(0, 3) asegura que la mayoría de los pasos sean pequeños y se concentren alrededor del punto de partida, creando patrones familiares y densos.
+
+Excepción (Evento improbable, territorio nuevo): Es el Vuelo de Lévy. Con una probabilidad muy baja (2%), el caminante da un gran salto aleatorio, alejándose drásticamente de su zona actual y explorando un área no visitada previamente. Además, este estado activa un modo visual especial temporalmente en update() y show().
+
+Influencia (El visitante transforma): La interacción del usuario (clic y movimiento del mouse) altera directamente el sistema:
+
+mousePressed(): Un clic crea un nuevo caminante en esa posición y, lo más importante, establece la Tendencia (direccionMouse) y aumenta la Influencia global (influencia = 1). Esto último reduce la probabilidad de la Normalidad, haciendo que los caminantes se muevan de forma menos predecible.
+
+mouseIsPressed en step(): Si el mouse se mantiene presionado, cada caminante siente una fuerza de atracción hacia el cursor, modificando su trayectoria en tiempo real.
+
+Aparición de Estrellas: Cuando un caminante sale del límite circular invisible en el centro (radius), crea una Star y es teletransportado de vuelta hacia el centro.
+
+Características del Sistema:
+Pieza Coherente: Todo ocurre en un solo lienzo negro y continuo. Las estrellas añaden una capa visual y de comportamiento extra.
+
+Modificación de Probabilidades: La interacción cambia el valor de influencia, lo que a su vez altera la lógica condicional en step(), cambiando las probabilidades de Normalidad y Tendencia.
+
+Funcionamiento Autónomo: El sistema sigue funcionando y evolucionando (los caminantes se mueven, las estrellas nacen, brillan y mueren) incluso sin interacción del usuario.
+
+Variaciones con Identidad Visual: Cada ejecución produce patrones únicos de rastros y estrellas debido a la aleatoriedad, pero la estética visual (fondo negro, rastros blancos, estrellas parpadeantes) y la lógica de movimiento general se mantienen constantes.
+
+Formato y Ejecución: Está configurado para pantalla completa y formato vertical (9:16, 1080x1920) y se ejecuta interactivamente en tiempo real en p5.js.
+
+Eventos Adicionales (Estrellas):
+Las estrellas añaden complejidad visual y de comportamiento:
+
+Nacimiento y Muerte: Nacen cuando un caminante sale del límite central y mueren lentamente (alpha -= fadeSpeed).
+
+Supernova: En raras ocasiones, una estrella puede explotar. Esto genera un "flash" visual, crea partículas que se expanden y, lo más interesante, aplica una fuerza de empuje a todas las otras estrellas cercanas, creando interacciones dinámicas en la población de estrellas.
+
+Este sistema es un ejemplo de arte generativo donde reglas simples y probabilidad interactúan con la entrada del usuario para crear una experiencia visual rica y evolutiva.
 
 
 
