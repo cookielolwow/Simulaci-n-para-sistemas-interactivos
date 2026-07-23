@@ -993,7 +993,18 @@ Me puse a investigar sobre festivales de ciencia y arte que estuvieran ocurriend
 
 Me gustaria intentar recrear como la superficie de la luna por medio de una experiencia que fuera construyendola lenntamente o intentara simularla.
 
-Usando de base el intento fallido anterior voy a empezar desde ahi para empezar a dibujar los trazos. Voy a borrar el cambio de figura y eliminar el resto de figuras. Solo deje el circulo que me gustó como se estaba comportando. Además inverti los colores para q el fondo fuera negro y el circulo blanco.
+## CONCEPTO
+En vez de pensar:
+
+"voy a dibujar la Luna"
+
+Vamos a pensar:
+
+"voy a dejar que miles de impactos microscópicos construyan lentamente un terreno."
+
+
+Usando de base el intento fallido anterior voy a empezar desde ahi para empezar a dibujar los trazos. Voy a borrar el cambio de figura y eliminar el resto de figuras. Solo deje el circulo que me gustó como se estaba comportando ya que me gustaba pensar en circulitos como particulas de polvo que van construyendo este lugar que se va pareciendo como al regolito. Además inverti los colores para q el fondo fuera negro y el circulo blanco.
+
 
 ```js
 let walker;
@@ -1189,8 +1200,405 @@ function mousePressed() {
 
 
 En este punto ya se estaba asemejando al relieve y textura de la luna en mi criterio. 
+Para añadir vetas hay que añadir tendencia al proyecto .
+
 
 Pero la idea es que el visitante pueda cambiar las reglas del universo, que cambie las posibilidades. 
+
+
+
+CÍRCULO
+
+
+let walkers = [];
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+let radius = 800;
+
+let t = 0
+function setup() {
+  createCanvas(1920, 1080);
+  background(0
+            );
+
+  walkers.push(new Walker(width/2, height/2, color(255)));
+}
+
+function draw() {
+
+  
+for (let w of walkers) {
+  w.step();
+  w.update();
+  w.show();
+}
+
+  
+  
+}
+
+class Walker {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+   
+
+    this.modoExcepcion = false;
+    this.inicioExcepcion = 0;
+  }
+
+  update() {
+
+  if (!this.modoExcepcion && random(1) < 0.001) {
+    this.modoExcepcion = true;
+    this.inicioExcepcion = millis();
+  }
+
+  if (this.modoExcepcion &&
+      millis() - this.inicioExcepcion > 2000) {
+    this.modoExcepcion = false;
+  }
+}
+
+
+ show() {
+
+  noStroke();
+
+  if (this.modoExcepcion) {
+   fill(255,10);
+
+    circle(this.x, this.y, random(15,30));
+
+  } else {
+    fill(255,10);
+
+    circle(this.x, this.y, 10);
+  }
+}
+  
+
+ step() {
+
+      this.x += random(-10, 10);
+      this.y += random(-10, 10);
+
+      if(dist(this.x,this.y,width/2,height/2) > radius/2)
+      {
+        this.x = random(-100, 100);
+        this.y = random(-100, 100);
+      }
+   
+    }
+
+}
+
+
+
+function mousePressed() {
+
+  walkers.push(
+    new Walker(
+      mouseX,
+      mouseY
+     
+    )
+  );
+
+}
+
+ ❌ No hay una tendencia real, porque todas las direcciones siguen siendo igual de probables.
+Crea cometas que pasen por la pantalla en una dirección preferida, PERO pueden haber excepciones.
+
+let walkers = [];
+let stars = []
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+let radius = 800;
+
+let t = 0
+let choice = 0
+function setup() {
+  createCanvas(1920, 1080);
+  background(0
+            );
+
+  walkers.push(new Walker(width/2, height/2, color(255)));
+}
+
+function draw() {
+
+  textSize(49)
+text(t,50,50)
+  
+for (let w of walkers) {
+  w.step();
+  w.update();
+  w.show();
+}
+
+  for (let s of stars) {
+  s.show();
+}
+
+
+  
+  
+}
+
+class Walker {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+   
+
+    this.modoExcepcion = false;
+    this.inicioExcepcion = 0;
+  }
+
+  update() {
+
+  if (!this.modoExcepcion && random(1) < 0.001) {
+    this.modoExcepcion = true;
+    this.inicioExcepcion = millis();
+  }
+
+  if (this.modoExcepcion &&
+      millis() - this.inicioExcepcion > 2000) {
+    this.modoExcepcion = false;
+  }
+}
+
+
+ show() {
+
+  noStroke();
+
+  if (this.modoExcepcion) {
+   fill(255,10);
+
+    circle(this.x, this.y, random(15,30));
+
+  } else {
+    fill(255,10);
+
+    circle(this.x, this.y, 10);
+  }
+}
+  
+
+ step() {
+
+      this.x += random(-10, 10);
+      this.y += random(-10, 10);
+
+      if(dist(this.x,this.y,width/2,height/2) > radius/2)
+      {
+        stars.push(new Star(random(0,width),random(0,height),t))
+        this.x += random(-100, 100);
+        this.y += random(-100, 100);
+
+        t++
+        if(t > 3) t = 0
+      }
+   
+    }
+
+}
+class Star {
+  constructor(x,y,choice)
+  {
+    this.x = x
+    this.y = y
+    this.choice = choice
+  }
+
+  show()
+  {
+    if(this.choice == 0){ fill(255,150,0)}
+    if(this.choice == 1) {fill(170,170,255) }
+    if(this.choice == 2) {fill(255,170,170 )}
+    if(this.choice == 3) {fill(255,255,255 )}
+    
+    circle(this.x,this.y,randomGaussian(0.1,0.5))
+  }
+}
+
+
+function mousePressed() {
+
+  walkers.push(
+    new Walker(
+      mouseX,
+      mouseY
+     
+    )
+  );
+
+}
+  
+
+ESTRELLAS
+❌ No hay una tendencia real, porque todas las direcciones siguen siendo igual de probables.
+Crea cometas que pasen por la pantalla en una dirección preferida, PERO pueden haber excepciones.
+
+let walkers = [];
+let stars = []
+let ultimoClick = 0;
+
+
+let modoExcepcion = false;
+let inicioExcepcion = 0;
+let radius = 800;
+
+let t = 0
+let choice = 0
+function setup() {
+  createCanvas(1920, 1080);
+  background(0
+            );
+
+  walkers.push(new Walker(width/2, height/2, color(255)));
+}
+
+function draw() {
+
+  textSize(49)
+text(t,50,50)
+  
+for (let w of walkers) {
+  w.step();
+  w.update();
+  w.show();
+}
+
+  for (let s of stars) {
+  s.show();
+}
+
+
+  
+  
+}
+
+class Walker {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+   
+
+    this.modoExcepcion = false;
+    this.inicioExcepcion = 0;
+  }
+
+  update() {
+
+  if (!this.modoExcepcion && random(1) < 0.001) {
+    this.modoExcepcion = true;
+    this.inicioExcepcion = millis();
+  }
+
+  if (this.modoExcepcion &&
+      millis() - this.inicioExcepcion > 2000) {
+    this.modoExcepcion = false;
+  }
+}
+
+
+ show() {
+
+  noStroke();
+
+  if (this.modoExcepcion) {
+   fill(255,10);
+
+    circle(this.x, this.y, random(15,30));
+
+  } else {
+    fill(255,10);
+
+    circle(this.x, this.y, 10);
+  }
+}
+  
+
+ step() {
+
+      this.x += random(-10, 10);
+      this.y += random(-10, 10);
+
+      if(dist(this.x,this.y,width/2,height/2) > radius/2)
+      {
+        stars.push(new Star(random(0,width),random(0,height),t))
+        this.x += random(-100, 100);
+        this.y += random(-100, 100);
+
+        t++
+        if(t > 3) t = 0
+      }
+   
+    }
+
+}
+class Star {
+  constructor(x,y,choice)
+  {
+    this.x = x
+    this.y = y
+    this.choice = choice
+  }
+
+  show()
+  {
+    if(this.choice == 0){ fill(255,150,0)}
+    if(this.choice == 1) {fill(170,170,255) }
+    if(this.choice == 2) {fill(255,170,170 )}
+    if(this.choice == 3) {fill(255,255,255 )}
+    
+    circle(this.x,this.y,randomGaussian(0.1,0.5))
+  }
+}
+
+
+function mousePressed() {
+
+  walkers.push(
+    new Walker(
+      mouseX,
+      mouseY
+     
+    )
+  );
+
+}
+  
+
+
+
+❌ No hay una distribución normal (todo usa random() uniforme).
+el tamaño de las estrellas puede ser producto de una distribucción uniforme.
+
+❌ La interacción (mousePressed) solo añade walkers; no cambia las probabilidades del sistema.
+Que al mouse lo siga un circulo negro, que atrae las cosas que están en cierto rango. Si están en el extremo del rango se mueven lentamente hacía el, si están muy cerca del centro del rango se mueven rapidamente. LOS OBJETOS QUE CAIGAN SON BORRADOS como un agujero negro
+
+❌ La excepción ocurre constantemente cuando sale del círculo, no como un evento realmente improbable.
+Un estado que tenga la CLASE STAR al que es muy poco probable acceder pero que le da lugar a una animación de supernova y BORRA EL OBJETO.
+
+
+
+
 
 
 
