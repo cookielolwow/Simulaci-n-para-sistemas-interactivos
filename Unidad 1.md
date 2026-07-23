@@ -1968,7 +1968,7 @@ function mousePressed(){
 <img width="420" height="765" alt="image" src="https://github.com/user-attachments/assets/7272de31-80fd-4a4f-8cdd-aecfedd44d96" />
 
 
- Por ultimo faltaba terminar de implementar el tema de usabilidad del usuario.  HIce que el tema de la influencia y tendencia fuera al presionar el mouse en la antalla y que los walkers fueran hacia ese punto por decirlo asi.
+ Por ultimo faltaba terminar de implementar el tema de usabilidad del usuario.  Hice que el tema de la influencia y tendencia fuera al presionar el mouse en la pantalla y que los walkers fueran hacia ese punto por decirlo asi.
 
 
 ```js
