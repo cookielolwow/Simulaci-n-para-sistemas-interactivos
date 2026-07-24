@@ -987,7 +987,7 @@ function mousePressed() {
 
 Todo mal :(, creo que mi error en general fue no entender del todo bien el proposito de diseñar la experiencia desde un concepto.
 
-Bueno, hay que retomar el diseño de concepto porque me desvie totalmente del proposito de la actividad y me fue accidentalmente por un camino mas de arte y improvisación que por el camino de diseñar.
+Bueno, hay que retomar el diseño de concepto porque me desvie totalmente del proposito de la actividad y me fui accidentalmente por un camino mas de arte y improvisación que por el camino de diseñar.
 
 Me puse a investigar sobre festivales de ciencia y arte que estuvieran ocurriendo aca en medellin y encontré "el Festival Buen Comienzo 2026: Un Viaje al Universo". Una de las actividades que se iban a realizar en este festival es "La Aventura Lunar, una recreación de la superficie de la Luna."
 
@@ -1461,8 +1461,13 @@ function mousePressed() {
 
 
 
-Una galaxia no es galaxia sin cometas , ni estrellas, etc. Conceptualice que esas estrellitas que estaban en el fondo tuvieran la posibilidad de explotar como las supernovas y sacudir un poquito sus alrededores.
- Tambien pensé como  desde lejos, el choque de grandes meteoritos en la luna parece como una lluvia de estrellas que solo se detecta como breves destellos de luz con telescopios especiales. Entonces estaria interesante lograr este efectoen las estrelas que ya estaban hechas. La forma de lograrlo fue aprovechar los Levy flights de los walkers. Cada vez que un walker realiza uno de esos saltos y abandona el límite del sistema, deja una estrella en el punto donde salió y cae a la luna. Estas estrellas nacen como un registro de ese evento poco frecuente y permanecen brillando lentamente hasta desvanecerse.
+Una galaxia realmente no se siente como una galaxia si no tiene estrellas, cometas y otros cuerpos celestes. Desde el principio quería que el fondo no fuera simplemente decorativo, sino que también tuviera vida. Por eso pensé que sería interesante que esas pequeñas estrellas tuvieran la posibilidad de explotar como supernovas y sacudir un poco lo que tienen a su alrededor.
+
+También me inspiró un fenómeno real: cuando grandes meteoritos impactan la Luna, desde la Tierra esos choques se ven como pequeños destellos de luz que solo pueden detectarse con telescopios especiales. Me pareció chévere intentar recrear esa sensación haciendo que, de vez en cuando, algunas estrellas brillaran intensamente y explotaran.
+
+Además, me interesaba explorar la idea de que tanto la Luna como los cuerpos celestes normalmente siguen comportamientos muy estables, pero que de vez en cuando ocurren excepciones capaces de cambiar el sistema. Sentía que esa idea se podía representar muy bien con los conceptos que aprendimos durante el reto.
+
+Para lograrlo aproveché los Lévy Flights de los walkers. Cada vez que uno de ellos realiza uno de esos saltos poco frecuentes y sale del límite del sistema, deja una estrella en el punto donde escapó y luego vuelve poco a poco hacia la Luna. Esas estrellas funcionan como el registro de un evento extraordinario: nacen a partir de una excepción, permanecen brillando un tiempo y, en algunos casos, incluso pueden convertirse en supernovas.
 
 
 Me faltaba solucionar los temas del concepto de la unidad y los requisitos del reto.
@@ -1470,7 +1475,7 @@ Me faltaba solucionar los temas del concepto de la unidad y los requisitos del r
 
 Para lograrlo utilicé walkers, ya que permiten construir trayectorias a partir de pequeñas decisiones probabilísticas en lugar de seguir una ruta fija.
 
-La mayor parte del tiempo el walker utiliza una distribución normal, por lo que da pasos cortos alrededor de su posición actual. Esto hace que el recorrido permanezca concentrado y que visualmente la luna parezca mantenerse en una órbita estable, representando la normalidad del sistema.
+La mayor parte del tiempo cada walker se mueve usando una distribución normal (randomGaussian), así que da pasos pequeños alrededor de su posición. Esto hace que el recorrido permanezca concentrado y transmite la sensación de estabilidad, como si la Luna y su entorno siguieran un comportamiento natural y predecible.
 
 Sin embargo, no quería que el movimiento fuera siempre igual. Por eso incorporé una tendencia, donde algunos pasos tienen una ligera preferencia hacia una dirección determinada. Esa preferencia es pequeña, pero al repetirse muchas veces termina construyendo una trayectoria reconocible sin eliminar el componente aleatorio.
 
@@ -1969,7 +1974,7 @@ function mousePressed(){
 
 
  Por ultimo faltaba terminar de implementar el tema de usabilidad del usuario.  Hice que el tema de la influencia y tendencia fuera al presionar el mouse en la pantalla y que los walkers fueran hacia ese punto por decirlo asi.
-
+La interacción no solo agrega elementos visuales. Cuando el usuario hace clic, modifica las probabilidades del sistema: disminuye la probabilidad de movimientos normales y aumenta la probabilidad de movimientos con tendencia hacia una dirección. Además, mientras mantiene presionado el mouse, cambia la regla de movimiento al agregar una fuerza de atracción hacia el cursor. Por eso la interacción altera el comportamiento del sistema y no únicamente su apariencia.
 
 ```js
 
@@ -2466,6 +2471,11 @@ function mousePressed(){
 Para poder lograr todo esto me tuve que apoyar bastante de la inteligencia artificial a la hora de realizar el codigo.
 
 
+
+## Conclusiones 
+
+
+Al final me sentí satisfecha con el resultado la verdad. Mi rpopuesta buscaba representar la superficie de la luna mediante caminatas aleatorias. Logre mostrar como a partir de las reglas de movmiento puede surgir un patrón interesante. Una de las reglas principales es que la mayoría de los movimientos se generan con gaussiano para mantener la "normalidad" del sistema, lo que hace que los circulitos den pasos pequeños la mayor parte del tiempo. Solo en un porcentaje muy bajo realizan saltos largos aplicando un Lévy Flight. Esta regla comunica la idea de que en muchos sistemas naturales predomina la normalidad, mientras que los eventos extremos ocurren con poca frecuencia pero tienen un gran impacto. Otra regla importante es que, al salir del límite circular, los caminantes generan estrellas, mostrando cómo ciertas condiciones producen nuevos fenómenos dentro del sistema.
 <img width="474" height="544" alt="image" src="https://github.com/user-attachments/assets/42685ad9-f019-4bf3-a53f-ca6d56b30e15" />
 
 
