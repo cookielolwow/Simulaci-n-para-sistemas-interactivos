@@ -224,6 +224,9 @@ Los parametros que decidí para cada particula representan el comportamiento de 
 
 
 <img width="845" height="584" alt="image" src="https://github.com/user-attachments/assets/e01513fb-4c74-439a-8666-bc18b765eaf1" />
+![Uploading image.png…]()
+
+* Mejore el trail para que no se viera tan saturado y fluyera mejor.
 
 
 ### Variaciones del sistema
