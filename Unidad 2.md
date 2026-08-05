@@ -186,17 +186,29 @@ Decidi ponerles el trail y los caminitos para asi al menos lograr un poquito de 
 Al final para que los minions no se aglomeraran de una en el centro decidi que empezaran repartidos por el canva para que asi crearan sus propias tribus. 
 
 
+<img width="346" height="551" alt="image" src="https://github.com/user-attachments/assets/57f8b070-586e-43cc-961a-ed2cb8a9b246" />
+
+
+<img width="460" height="411" alt="image" src="https://github.com/user-attachments/assets/424aec64-f7f5-44ef-9708-a1aac8477514" />
+
+
+
+<img width="845" height="584" alt="image" src="https://github.com/user-attachments/assets/e01513fb-4c74-439a-8666-bc18b765eaf1" />
+
+
+* Mejore el trail para que no se viera tan saturado y fluyera mejor.
+
 ## RESULTADOOOOS
 **CODIGO:** https://editor.p5js.org/cookielolwow/sketches/hYZTU8Baj
 
 | Tipo                     | Cantidad | Función                                                                | Justificación de los parámetros
 | ------------------------ | -------- | ---------------------------------------------------------------------- |---------------------------------------
-| Minions                  | 300      | Población principal. Se agrupan y siguen fuerzas de otras especies.    |Los minions amarillos son el grupo mas numeroso , por lo que para crear grupos y tribus se atrae entre ellos. Además como su proposito es buscar un lider siente gran atracción hacia ellos. Y repudian totalmente la mermelada.
+| Minions                  | 420      | Población principal. Se agrupan y siguen fuerzas de otras especies.    |Los minions amarillos son el grupo mas numeroso , por lo que para crear grupos y tribus se atrae entre ellos. Además como su proposito es buscar un lider siente gran atracción hacia ellos. Y repudian totalmente la mermelada.
 | Elite (Bob/Kevin/Stuart) | 100      | Variante de minions con identidad visual propia.                       |La Élite mantiene una lógica similar a la de los minions, pero con una atracción mucho mayor hacia Scarlet, pues ambos representan figuras de autoridad y liderazgo dentro del universo. También son atraídos por Gru, ya que siguen a quien consideran el villano principal
 | Morados                  | Variable | Especie invasora que puede transformar minions.                        |Los Morados fueron configurados para perseguir principalmente a los minions y a la Élite. En la película estos personajes son minions alterados que buscan atacar a los demás,
 | Gru                      | 1        | Figura central con interacción limitada.                               |Gru posee un radio de influencia muy amplio y una atracción baja. Esto hace que actúe como un punto de reunión que organiza el sistema sin absorber inmediatamente a todas las partículas
-| Scarlet                  | 10       | Agentes con comportamiento especial de rechazo/traición.               |Scarlet tiene una influencia más fuerte sobre la Élite (bob,stuart y kevin). Ella representa un lider volatil, por lo cual genera rechazo y atracción a los minions representando una traición.
-| Pie Grande               | 10       | Población con condición de eliminación por exceso de minions cercanos. |Atrae a los minions a distancias medias. Su papel es representar la letalidad de los minions. Cuando tenga cirta de cantidad de minions alrededor va a desaparecer.
+| Scarlet                  | 5       | Agentes con comportamiento especial de rechazo/traición.               |Scarlet tiene una influencia más fuerte sobre la Élite (bob,stuart y kevin). Ella representa un lider volatil, por lo cual genera rechazo y atracción a los minions representando una traición.
+| Pie Grande               | 20       | Población con condición de eliminación por exceso de minions cercanos. |Atrae a los minions a distancias medias. Su papel es representar la letalidad de los minions. Cuando tenga cirta de cantidad de minions alrededor va a desaparecer.
 | El Macho                 | 3        | Infecta y transforma partículas amarillas.                             |Su presencia es más notoria y logra atraer minions desde una mayor distancia que pie grande. Su función es competir parcialmente con Gru por la atención de los minions, generando desplazamientos y reorganizaciones constantes dentro de la simulación, pero sin llegar a convertirse en el centro dominante del sistema.
 | Mermelada                | 5        | Cura partículas moradas devolviéndolas al estado amarillo.             |Su función consiste únicamente en ser rechazado por los minions y la Élite, provocando que estos huyan de él y generando zonas de conflicto dentro de la simulación. Pero cura a los infectados morados, esstos sienten un poquito de atracción a ellas para que puedan curarse si poerden el rumbo.
 
@@ -216,17 +228,12 @@ Los parametros que decidí para cada particula representan el comportamiento de 
 | **Mermelada** | `0.0` / `0` | `0.0` / `0` | `0.0` / `0` | `0.0` / `0` | `0.0` / `0` | `0.0` / `0` | `0.0` / `0` | `0.0` / `0` |
 
 
-<img width="346" height="551" alt="image" src="https://github.com/user-attachments/assets/57f8b070-586e-43cc-961a-ed2cb8a9b246" />
 
 
-<img width="460" height="411" alt="image" src="https://github.com/user-attachments/assets/424aec64-f7f5-44ef-9708-a1aac8477514" />
-
-
-
-<img width="845" height="584" alt="image" src="https://github.com/user-attachments/assets/e01513fb-4c74-439a-8666-bc18b765eaf1" />
-![Uploading image.png…]()
-
-* Mejore el trail para que no se viera tan saturado y fluyera mejor.
+  
+<img width="302" height="197" alt="image" src="https://github.com/user-attachments/assets/427dcdbb-c370-4639-9918-0e9064bec59d" />
+<img width="152" height="116" alt="image" src="https://github.com/user-attachments/assets/85052a9f-f154-413d-ad4d-99741134f1de" />
+<img width="243" height="152" alt="image" src="https://github.com/user-attachments/assets/1a3f104d-16b9-4b09-b04a-ece06c7f4ff4" />
 
 
 ### Variaciones del sistema
