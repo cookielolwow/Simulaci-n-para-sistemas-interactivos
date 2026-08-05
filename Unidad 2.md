@@ -246,14 +246,13 @@ Cada ejecución produce una colonia diferente aunque conserve la misma identidad
 
 | Criterio                    | Evidencia                                  | Cumplimiento |
 | --------------------------- | ------------------------------------------ | ------------ |
-| Movimiento basado en física | logré que cada particula lograra tener una posición, velocidad y fuerzas              | ✅            |
-| Varias poblaciones          | hice 8 tipos de partículas  con diferentes propositos                    | ✅            |
-| Interacciones por distancia | Planteé una Matriz y sus respectivos rangos                            | ✅            |
-| Relaciones asimétricas      | Los minions morados solo seguian a los amarillos y estos corrian de ellos, Scarlet rexhazaba a veces a los minions amarillos, la mermelada generaba repulsión en los minions                  | ✅            |
-| Variabilidad                | posición inicial de las partículas, cantidad de individuos por especie, probabilidad de infección, estado inicial de Scarlet y los patrones emergentes generados en cada ejecución.                            | ✅            |
-| Emergencia                  | Se creaban grupos diferentes y buscaban objetivos distintos en el proceso, siempre estaban buscando lideres nuevos. Y hubieron comportamientos inesperados como que a veces ellos eran perseguidos por los villanos | ✅            |
-| Identidad visual            | Imágenes, colores y trails. Las poblaciones lograron ser reconocibles                 | ✅            |
+| Movimiento basado en física | logré que cada particula lograra tener una posición, velocidad y fuerzas              | 5           |
+| Varias poblaciones          | hice 8 tipos de partículas  con diferentes propositos                    | 5           |
+| Interacciones por distancia | Planteé una Matriz y sus respectivos rangos                            | 5            |
+| Relaciones asimétricas      | Los minions morados solo seguian a los amarillos y estos corrian de ellos, Scarlet rexhazaba a veces a los minions amarillos, la mermelada generaba repulsión en los minions                  | 5            |
+| Variabilidad                | posición inicial de las partículas, cantidad de individuos por especie, probabilidad de infección, estado inicial de Scarlet y los patrones emergentes generados en cada ejecución.                            | 5            |
+| Emergencia                  | Se creaban grupos diferentes y buscaban objetivos distintos en el proceso, siempre estaban buscando lideres nuevos. Y hubieron comportamientos inesperados como que a veces ellos eran perseguidos por los villanos | 5           |
+| Identidad visual            | Imágenes, colores y trails. Las poblaciones lograron ser reconocibles                 | 5           |
 
-
-Genuinamente siento que cumpli con los items de la autoevaluación pero no logré el objetivo de crear un particle of life.
+### nota: 5
 
