@@ -1,7 +1,7 @@
 # Unidad 3: Fuerzas  ヾ(⌐■_■)ノ♪ 🪩
 ## Actividad 03: encargo de diseño 
 
-# Intención del instrumentoヾ(⌐■_■)ノ♪ 🪩
+### Intención del instrumentoヾ(⌐■_■)ノ♪ 🪩
 
 Desde que empezamos a hablar de la actividad, la verdad es que solo tuve una forma de visualizarla y entender qué era lo que quería hacer.
 
