@@ -1,4 +1,6 @@
 # Unidad 3: Fuerzas  ヾ(⌐■_■)ノ♪ 🪩
+
+
 ## Actividad 03: encargo de diseño 
 
 ### Intención del instrumentoヾ(⌐■_■)ノ♪ 🪩
@@ -119,7 +121,10 @@ Estas variables permiten que una misma masa pueda pasar por diferentes estados s
 
 # **01.Instrumento funcional y publicado: URL pública, modo LAB y modo PERFORMANCE.**
 
+- **GITHUB**
+https://github.com/cookielolwow/InteractivOOOOOSFUerzas.git
 
+-**PAGINA WEB**
 https://cookielolwow.github.io/InteractivOOOOOSFUerzas/
 
 
@@ -1224,3 +1229,15 @@ y el teclado continúa siendo el principal medio de interpretación durante PERF
 <img width="1864" height="865" alt="image" src="https://github.com/user-attachments/assets/a75a64bd-e5ba-445d-8846-d14f7ea6153c" />
 
 # **7. Autoevaluación**ヾ(⌐■_■)ノ♪ 🪩
+
+# Evaluación del proyecto
+
+| **Criterio**                                  | **Peso** | **Qué debe demostrar la evidencia**                                                                                                      | **Valoración** |
+| --------------------------------------------- | -------: | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------: |
+| **Trazabilidad y comprensión del sistema**    |       25 | Entiendo cómo funcionan el estado, fuerzas, integración, render y controles. También sé qué partes hice con IA y cuáles modifiqué.       |      **25/25** |
+| **Verificación del algoritmo de fuerzas**     |       25 | Probé las fuerzas por separado, hice predicciones, cambié parámetros y signos y comparé los resultados para entender qué hacía cada una. |      **25/25** |
+| **Diseño de fuerzas e intención**             |       20 | Las fuerzas están pensadas para generar diferentes movimientos y sensaciones sin tener las trayectorias hechas de antemano.              |      **20/20** |
+| **Instrumento, score e interpretación**       |       15 | El LAB sirve para experimentar y PERFORMANCE para controlar el sistema en vivo con pocas teclas, como si fueran faders.                  |      **15/15** |
+| **Experimentación y criterio frente a la IA** |       10 | Probé varias opciones, descarté cosas que no funcionaban y modifiqué lo que proponía la IA según lo que necesitaba el proyecto.          |      **10/10** |
+| **Entrega técnica y documentación**           |        5 | La URL funciona y la bitácora muestra el proceso y las pruebas realizadas.                                                               |        **5/5** |
+| **Total Puntos**                              |  **100** |                                                                                                                                          |    **100/100** |
