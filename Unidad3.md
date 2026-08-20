@@ -773,10 +773,34 @@ Esta combinación representa directamente el concepto del instrumento:
 
 <img width="360" height="360" alt="image" src="https://github.com/user-attachments/assets/ce8ea3bd-2fb0-4684-ba66-8c2c770965e2" />
 
-- **0- 0:32**
+- **0- 0:43**
+  
     Me lo imagino primero como una entrada suave con el modo vortex y dejarlo fluir por este momento como para la introducción de la canción.
-  Además, en el fondo se alcanzan a escuchar unos beats que se van a seguir con la tecla J.
+    Además, para darle diferencia a la visual voy a presionar el espacio p
 
+- **0:43-1:15**
+  
+  Esta parte se vuelve mas erratica y más crazyy con la introducción del nuevo beat.  Aca quiero hacer como un preambulo del drop raro que viene, lo voy a hacer hacieendo como una argolla q va a ir transformandose hasta explotar, la hare presionando varias veces la l,j y k.
+
+- **1:15 - 1:54**
+  
+  Esta parte como que va siendo de silencio, me imagino al sistema como calmandose y comprimiendose. Esto lo voy a hacer moviendo los faders del recover y atract pero que todo sea muy progresivo.
+
+- **1:54 - 2:44**
+
+    Esta parte si me la imagino mas como un poco de lo mismo. Dejar al sistema fluir con el vortex y las fuerzas. Para que no se quede quieto la idea es ir presionando los beats y mover el fader de atracción contonuamente para que repela y atraiga.
+
+- **2:44 - 3:50**
+  
+   Aca como que se va la percusión asi de hit hat y se quedan los bajos principalmente. Es como un poco mas grave pero resaltan unas voces, aca planeo hacer el sistema saltar con las voces presionando space y moviendo los faders de atract otra vez para seguir los faders del fondo.
+
+- **3:50 - 4:25**
+ 
+  Esta parte vuelve un poquito a lo mismo pero vuelven el resto de los instrumentos, aca lo voy a hacer mas erratico pero siguiendo con la idea de las voces.
+
+- **4:25 - 4:43**
+
+  Aca la canción ya se esta apagando, entonces me lo imagino como todo ralentizandose pero con ritmito todavia. Aca con el recover y el drag voy a hacer como un reinicio lento del sistema llevandolo como al inicio con vortex.
 
 
 # **06. Bitácora de IA**ヾ(⌐■_■)ノ♪ 🪩
