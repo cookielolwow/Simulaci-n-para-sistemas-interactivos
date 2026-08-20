@@ -614,13 +614,12 @@ Las partículas deberían comenzar con una velocidad inicial y continuar desplaz
 
 ### Observación
 
-**Pendiente de registrar durante la prueba formal.**
+<img width="1144" height="974" alt="image" src="https://github.com/user-attachments/assets/a11bd876-870e-4120-b66e-57da4a0c2310" />
+
 
 ### Resultado
 
-**Pendiente.**
-
----
+Las particulitas se quedan por ahi andando asi como relajadas, no se mueven mucho.
 
 ## Prueba 2 — Fuerza constante +X
 
@@ -637,13 +636,12 @@ Las partículas deberían recibir una fuerza constante hacia el eje X positivo.
 
 ### Observación
 
-**Pendiente de registrar durante la prueba formal.**
+<img width="1186" height="994" alt="image" src="https://github.com/user-attachments/assets/580c0041-efeb-4ba1-a6b4-e8848846c9df" />
+
 
 ### Resultado
 
-**Pendiente.**
-
----
+Las particulitas si se fueron a la derecha pero al llegar al limite se devolvieron y hicieron una figurita similar a una medusita. 
 
 ## Prueba 3 — Atracción
 
@@ -660,17 +658,16 @@ Las partículas deberían experimentar una fuerza hacia el atractor.
 
 ### Observación
 
-Durante la exploración se observó que una atracción sostenida puede provocar una concentración excesiva de la masa alrededor del centro.
+<img width="833" height="763" alt="image" src="https://github.com/user-attachments/assets/a06c6e0b-0e43-408d-b054-062bf5ed9cfb" />
+
 
 ### Resultado
 
-La predicción direccional se cumple, pero el comportamiento visual llevó a plantear la necesidad de una fuerza o regla adicional que preserve la masa.
+La predicción direccional se cumplió, las particulitas si se dirigieron hacia el atarcator, pero el comportamiento visual llevó a plantear la necesidad de una fuerza o regla adicional que preserve la masa.
 
 ### Decisión
 
 Mantener Radial como la fuerza encargada de la compactación, pero evitar que la masa termine reducida a un único punto.
-
----
 
 ## Prueba 4 — Repulsión
 
@@ -686,14 +683,12 @@ Radial Strength = -3
 Las partículas deberían acelerarse alejándose del atractor.
 
 ### Observación
+<img width="1378" height="967" alt="image" src="https://github.com/user-attachments/assets/e690fb5a-40bd-4741-aa7d-c0b4ef79cfaa" />
 
-**Pendiente de formalizar mediante captura y comparación controlada.**
 
 ### Resultado
 
-**Pendiente.**
-
----
+Si se alejaron del atractor y creaban figuras muy interesantes.
 
 ## Prueba 5 — Vórtice
 
@@ -727,8 +722,9 @@ Vortex → circulación
 ### Resultado
 
 La fuerza continúa en proceso de ajuste. El objetivo visual definitivo es producir **remolinos dentro de una masa tridimensional**, sin que la masa se convierta en un plano.
+### Observación
+<img width="1051" height="994" alt="image" src="https://github.com/user-attachments/assets/ac27cbb8-4254-47f7-b9af-3a5845abad87" />
 
----
 
 ## Prueba específica — Combinación central del instrumento
 
@@ -763,7 +759,8 @@ La simulación no debe reiniciarse y las perturbaciones de `J` deben modificar m
 
 ### Observación
 
-**Pendiente de prueba formal y captura de evidencia.**
+<img width="1475" height="964" alt="image" src="https://github.com/user-attachments/assets/79b50748-6c83-4f23-860b-6e219be3665a" />
+
 
 ### Justificación
 
@@ -773,6 +770,14 @@ Esta combinación representa directamente el concepto del instrumento:
 
 
 # **05. Score visual de LesAlpx* ヾ(⌐■_■)ノ♪ 🪩
+
+<img width="360" height="360" alt="image" src="https://github.com/user-attachments/assets/ce8ea3bd-2fb0-4684-ba66-8c2c770965e2" />
+
+- **0- 0:32**
+    Me lo imagino primero como una entrada suave con el modo vortex y dejarlo fluir por este momento como para la introducción de la canción.
+  Además, en el fondo se alcanzan a escuchar unos beats que se van a seguir con la tecla J.
+
+
 
 # **06. Bitácora de IA**ヾ(⌐■_■)ノ♪ 🪩
 
