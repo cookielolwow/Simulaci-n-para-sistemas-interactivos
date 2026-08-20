@@ -120,7 +120,7 @@ Estas variables permiten que una misma masa pueda pasar por diferentes estados s
 # **01.Instrumento funcional y publicado: URL pública, modo LAB y modo PERFORMANCE.**
 
 
-
+https://cookielolwow.github.io/InteractivOOOOOSFUerzas/
 
 
 # **02. Mapa del sistema**ヾ(⌐■_■)ノ♪ 🪩
