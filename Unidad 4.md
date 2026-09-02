@@ -5,6 +5,7 @@
 Me acordé de esta súper actividad que hice en Sistemas Interactivos 1 que era un rave de gatos, y quise llevar esa vibra a otro nivel usando el modelo de Kuramoto.
 
 
+<img width="980" height="690" alt="image" src="https://github.com/user-attachments/assets/5cb6b757-ccfd-42c5-85d8-6905e01ebffa" />
 
 
 
@@ -168,6 +169,11 @@ Todo eso se va sumando en capas simultáneas, y como además suben en volumen (t
 https://github.com/user-attachments/assets/8c86bac9-5bc3-4208-8a1e-6aeb61932dd8
 
 
+y bueno ya al final escuchando como se iba armando la cancion a medida que la gente se sincronizaba, me acorde demasiado de este meme de los rabbids bailando [acceptable in the 80s](https://youtu.be/zUstM3BO7ok?si=ie29EQKNEzI3mawJ). literal esa vibra super wonky pero que al final tiene sentido era justo lo que estaba logrando en el codigo, asi que obviamente termine metiendo a los rabbids como los agentes del rave jajaja.
+
+aah y obviamente no podia ser un rave de verdad sin un piso bien loco. asi que me programe un suelo disco de ajedrez bien rave para sumarle a toda la ambientacion. esas lucecitas del piso no estan de adorno, reaccionan en tiempo real al BPM y al pulso de cuando los rabbids aterrizan juntos para que se sienta toda la energia del club.
+#LINKS👽✮⋆˙ ☠︎︎ ★☠︎ ✮⋆˙
+https://github.com/cookielolwow/InteractivOOOOOSFUerzas.git
 
 
 
