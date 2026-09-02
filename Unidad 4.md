@@ -174,6 +174,21 @@ y bueno ya al final escuchando como se iba armando la cancion a medida que la ge
 aah y obviamente no podia ser un rave de verdad sin un piso bien loco. asi que me programe un suelo disco de ajedrez bien rave para sumarle a toda la ambientacion. esas lucecitas del piso no estan de adorno, reaccionan en tiempo real al BPM y al pulso de cuando los rabbids aterrizan juntos para que se sienta toda la energia del club.
 
 
+<img width="1120" height="620" alt="image" src="https://github.com/user-attachments/assets/82fa18b3-b7d0-4ea6-9486-67209729fa9b" />
+
+Descubrí unos bugs de la cámara y los corregí. Al parecer al bajarse la r la cámara como que decidia suicidarse.
+
+
+<img width="1048" height="655" alt="image" src="https://github.com/user-attachments/assets/cf546594-3224-4918-9ffb-0f5e0b3c02fb" />
+
+
+YYYY le añadi unas mejoritas:
+
+
+- Añadí diferentes modos de cámara para añadirle variabilidad a la escena.
+- Añadí un fondo de una esfera disco para darle mas ambiente.
+- Mejoré unos colores de los agentes para que se diferenciaran más.
+- Por sugerencia de juanfer añadí un modo por cada sonido para aislarlo y poder diferenciarlos mejor.
 # LINKS 👽✮⋆˙ ☠︎︎ ★☠︎ ✮⋆˙
 
 - **GITHUB**: https://github.com/cookielolwow/InteractivOOOOOSFUerzas.git
