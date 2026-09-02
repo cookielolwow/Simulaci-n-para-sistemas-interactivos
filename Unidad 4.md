@@ -164,7 +164,8 @@ Con R > 0.65 se van destrabando, en cascada, todas las capas que antes estaban m
 Todo eso se va sumando en capas simultáneas, y como además suben en volumen (todas las funciones tienen + R * algo en su fuerza), no solo hay más elementos sino que suenan más fuerte y más presentes.
 
 
-<img width="1460" height="808" alt="image" src="https://github.com/user-attachments/assets/93ef7ad6-3f7e-4162-bab3-de8bc0b4671e" />}
+<img width="1460" height="808" alt="image" src="https://github.com/user-attachments/assets/93ef7ad6-3f7e-4162-bab3-de8bc0b4671e" />
+
 
 https://github.com/user-attachments/assets/8c86bac9-5bc3-4208-8a1e-6aeb61932dd8
 
