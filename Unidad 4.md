@@ -174,11 +174,20 @@ y bueno ya al final escuchando como se iba armando la cancion a medida que la ge
 aah y obviamente no podia ser un rave de verdad sin un piso bien loco. asi que me programe un suelo disco de ajedrez bien rave para sumarle a toda la ambientacion. esas lucecitas del piso no estan de adorno, reaccionan en tiempo real al BPM y al pulso de cuando los rabbids aterrizan juntos para que se sienta toda la energia del club.
 
 
-#LINKS👽✮⋆˙ ☠︎︎ ★☠︎ ✮⋆˙
+# LINKS 👽✮⋆˙ ☠︎︎ ★☠︎ ✮⋆˙
 
 - **GITHUB**: https://github.com/cookielolwow/InteractivOOOOOSFUerzas.git
 
 
-- **PAGINA WEB**:
+- **PAGINA WEB**: https://cookielolwow.github.io/InteractivOOOOOSFUerzas/
+
+
+# AUTOEVALUACIÓN 👽✮⋆˙ ☠︎︎ ★☠︎ ✮⋆˙
+- Leí y verifiqué que mi proyecto cumple con los requisitos mínimos de la unidad: 25 puntos.
+- Puedo explicar claramente qué representa cada variable del modelo de Kuramoto en mi proyecto: 25 puntos.
+- Puedo explicar claramente cómo las variables del modelo producen el comportamiento observado en mi proyecto: 25 puntos.
+- Puedo demostrar que mi proyecto cumple con los objetivos establecidos en la unidad: 25 puntos.
+
+  **NOTA**: 100/100 = 5
 
 
