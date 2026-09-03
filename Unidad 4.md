@@ -207,3 +207,7 @@ YYYY le añadi unas mejoritas:
   **NOTA**: 100/100 = 5
 
 
+Un agradecimiento especial a tomy que me dio recomendaciones y ideitas que me ayudaron a encontrar una mejor visión del proyecto.
+
+
+ 
