@@ -1,7 +1,9 @@
 # Sistemas de partículas 🎥♦️
 ## Actividad 02: Encargo de diseño
 
-### Reto de diseño: Una estructura que se convierte en lenguaje 
+
+**PAGINA WEB** : https://cookielolwow.github.io/InteractivOOOOOSFUerzas/
+### Reto de diseño: Una estructura que se convierte en lenguaje 🎥♦️
 
 Diseña una presentación generativa que interprete este guion mediante una estructura dinámica de elementos relacionados y en movimiento.
 
@@ -18,7 +20,7 @@ Tu sistema visual deberá construir significado a través de cambios en sus rela
 
 ---
 
-### Contexto y Requisitos del Proyecto
+### Contexto y Requisitos del Proyecto🎥♦️
 
 El Centro de Eventos Fórum UPB necesita una presentación visual para la charla **“Relevo generacional: la ventaja que nadie está aprovechando”**. 
 
@@ -37,7 +39,7 @@ Para iniciar a diseñar, primero hay que entender que el Fórum es un espacio pa
 
 ---
 
-### Guion y Desarrollo Conceptual por Slide
+### Guion y Desarrollo Conceptual por Slide🎥♦️
 
 #### Slide 1
 * **Concepto:** Introducción. Sistema solar girando hecho con partículas 3D usando los colores del evento, representando a la comunidad. El Sol central representa al Fórum, rodeado constantemente de meteoritos, estrellas y nebulosas.
@@ -121,11 +123,11 @@ Para iniciar a diseñar, primero hay que entender que el Fórum es un espacio pa
 
 ---
 
-### Autoevaluación del Proyecto
+### Autoevaluación del Proyecto🎥♦️
 
 Para este proyecto desarrollé una experiencia interactiva basada en web para la charla *"Relevo generacional: la ventaja que nadie está aprovechando"*. La propuesta conceptualiza el Fórum UPB como un sistema solar dinámico. La intención técnica y narrativa fue huir de la típica animación decorativa; cada parámetro de movimiento responde a una lógica de estado y a una intención clara.
 
-**Calificación Final: 100/100**
+**Calificación Final: 100/100**🎥♦️
 
 #### 1. Cumplimiento del encargo: 25/25
 Considero que cumplí con el encargo porque la propuesta interpreta de manera integral el guion y respeta su secuencia narrativa. Funciona en pantalla completa directamente desde el navegador y está pensada para proyectarse en pantallas grandes. Implementé una separación limpia de los textos para poder alternar dinámicamente entre español, inglés y portugués. 
