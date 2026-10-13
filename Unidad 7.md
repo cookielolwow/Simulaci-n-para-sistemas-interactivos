@@ -50,7 +50,7 @@
 | **Resolución tipográfica y experiencia de juego** | **25/25** |
 | **Total** | **100/100**
 
-## 2. Prueba antes de explicar
+## 2. Prueba antes de explicar 🍎🌱✩
 
 **Regla de presentación:** mostrar la página funcionando e invitar a jugar sin describir primero la identidad, el atributo ni el significado de los sonidos. Escuchar la interpretación espontánea antes de explicar.
 
@@ -78,7 +78,7 @@
 | **Cómo interpretó sonidos y señales** | "que el sonidito indicaba que le pegué" |
 | **¿Resolvió el puzzle? ¿Qué le ayudó o bloqueó?** | "no fui capazs" |
 
-## 3. Explicación después de escuchar
+## 3. Explicación después de escuchar 🍎🌱✩
 
 1. **Organización, atributo y contexto:** la organización/marca representada es **A Bold Dream (ABD)**. Para esta propuesta exploro una identidad de **expresividad lúdica y optimista**, en una experiencia web donde la composición del nombre se convierte en un puzzle manipulable. La referencia visual combina color pop-tech y brillo inspirado en la dirección artística definida para el proyecto.
 2. **Tipografía, reglas y acciones:** las letras A, B y D se separan en un `Group` de posición y un objeto visual de escala/rotación. Se pueden mover, ajustar de tamaño, girar y colorear; los tonos, los sonidos y los checks comunican proximidad a la composición objetivo. La jerarquía final A < B < D y la línea de base compartida convierten el armado del nombre en la exploración de esa expresividad.
