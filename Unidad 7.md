@@ -87,9 +87,9 @@
 
 Vi que la verdad estaba muy dificil pero no pq fuera imposible si no pq habian errores en el codigo que hacian que el feedback fuera malo y se dieran a entender posiciones incorrectas como las correctas y nunca se iba activar el modo ganador.
 
+Arreglé esos errores haciendo que mientras cada letra va llegando a su punto correcto se bloquee la letra en donde es fija para que ya no se mueva y no arruinar como el trabajo. Y el modo ganador se activa cuando detecta que las tres letras estan bloqueadas.
 
-
-
+Además me di la libertad de mejorar la ui para que se viera mas acorde. 
 
 ## 3. Explicación después de escuchar 🍎🌱✩
 
