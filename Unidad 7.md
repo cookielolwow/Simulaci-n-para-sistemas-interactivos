@@ -82,6 +82,15 @@
 | **Cómo interpretó sonidos y señales** | "que el sonidito indicaba que le pegué" |
 | **¿Resolvió el puzzle? ¿Qué le ayudó o bloqueó?** | "no fui capazs" |
 
+
+## Correcciones despúes de la pruebea
+
+Vi que la verdad estaba muy dificil pero no pq fuera imposible si no pq habian errores en el codigo que hacian que el feedback fuera malo y se dieran a entender posiciones incorrectas como las correctas y nunca se iba activar el modo ganador.
+
+
+
+
+
 ## 3. Explicación después de escuchar 🍎🌱✩
 
 1. **Organización, atributo y contexto:** la organización/marca representada es **A Bold Dream (ABD)**. Para esta propuesta exploro una identidad de **expresividad lúdica y optimista**, en una experiencia web donde la composición del nombre se convierte en un puzzle manipulable. La referencia visual combina color pop-tech y brillo inspirado en la dirección artística definida para el proyecto.
