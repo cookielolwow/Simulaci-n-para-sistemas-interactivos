@@ -1,6 +1,6 @@
 # WHY BOTHER? 🪩𝄞⨾💿✮˚.⋆
 
-
+## LINK: https://cookielolwow.github.io/WHY-BOTHER/
 La verdad es un pregunta que tambien habia estado en mi cabeza hace un tiempito, siento que con el tiempo me iba deprimiento cada vez mas y mas viendo que todo al mia lrededor se iba automatizando , incluyendo nuestro sentir y nuestro comportamiento. 
 Me incomodaba mucho ver que las personas a mi alrededor poco a poco empezaron aperder el interes en usar la cabeza y simplemente se lo dejaron a algo mas ese pensar de ellos. No puedo negar que incluso yo cai ahi pero estoy trabajando para salir de eso.
 Siento que toda la magia de la creación para la que los humanos estamos hechos cada vez esta mas perdida. Ya son menos las personas entregadas a crear, ya todos solo queremos consumir y consumir y consumir, perdemos esa parte de exploración de cada uno por ya 
@@ -19,4 +19,4 @@ Esto se conecta con la pregunta Why Bother? ¿Para qué tomarte el trabajo? En u
 Para mí, ambas preguntas se conectan en la importancia de construir algo propio. Así como el arte ha permitido que la Comuna 13 cuente su historia desde una perspectiva diferente, crear también es una forma de decidir qué queremos expresar, qué queremos conservar y cómo queremos transformar nuestras experiencias. No se trata necesariamente de hacer todo sin herramientas tecnológicas, sino de encontrar una razón para utilizarlas, tomar decisiones y darle un significado personal a lo que hacemos.
 
 
-
+AUTOEEVAALUACIÓN: 5
