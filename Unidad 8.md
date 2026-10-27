@@ -19,4 +19,4 @@ Esto se conecta con la pregunta Why Bother? ¿Para qué tomarte el trabajo? En u
 Para mí, ambas preguntas se conectan en la importancia de construir algo propio. Así como el arte ha permitido que la Comuna 13 cuente su historia desde una perspectiva diferente, crear también es una forma de decidir qué queremos expresar, qué queremos conservar y cómo queremos transformar nuestras experiencias. No se trata necesariamente de hacer todo sin herramientas tecnológicas, sino de encontrar una razón para utilizarlas, tomar decisiones y darle un significado personal a lo que hacemos.
 
 
-AUTOEEVAALUACIÓN: 5
+AUTOEVALUACIÓN: 5
